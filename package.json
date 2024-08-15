@@ -1,0 +1,14 @@
+{
+  "name": "simu_road",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "rtg:setup": "pip install -r rtg/requirements.txt",
+    "rtg": "python rtg/main.py ./workspace/rtg.yml",
+    "merge": "simutrans-image-merger.exe ./workspace/merge.json",
+    "build": "npm run rtg && npm run merge"
+  },
+  "author": "",
+  "license": "ISC"
+}
