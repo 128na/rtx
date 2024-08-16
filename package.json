@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "pip install -r rtg/requirements.txt && pip install -r requirements.txt",
     "rtg:update": "git submodule update --remote",
-    "rtg:setup": "pip install -r rtg/requirements.txt",
     "dat": "python dat.py  > ./dist/road.dat",
     "rtg": "python rtg/main.py ./workspace/rtg.yml",
     "merge": "simutrans-image-merger.exe ./workspace/merge.json",
