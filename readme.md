@@ -4,13 +4,14 @@
 
 # 導入
 
-リリースページからダウンロードしてください
+リリースページからダウンロードしてください。
+https://github.com/128na/rtx/releases
 
 # 開発者向け
 
 事前にpython(3.12以上)を導入してください。
 ```
-git clone --recursive 
+git clone --recursive https://github.com/128na/rtx.git
 
 npm run setup
 ```
