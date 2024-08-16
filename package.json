@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "rtg:update": "git submodule update --remote",
     "rtg:setup": "pip install -r rtg/requirements.txt",
+    "dat": "python dat.py  > ./dist/road.dat",
     "rtg": "python rtg/main.py ./workspace/rtg.yml",
     "merge": "simutrans-image-merger.exe ./workspace/merge.json",
-    "build": "npm run rtg && npm run merge"
+    "build": "npm run dat && npm run rtg && npm run merge"
   },
   "author": "",
   "license": "ISC"

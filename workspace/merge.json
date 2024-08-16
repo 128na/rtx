@@ -2,15 +2,15 @@
   "version": 1,
   "definitions": [
     {
-      "outputPath": "workspace\\road.png",
+      "outputPath": "dist\\road.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "demo",
           "pathes": [
-            "workspace\\tmp.png",
-            "workspace\\remove.png"
+            "workspace\\tmp_road.png",
+            "workspace\\bg_road.png"
           ],
           "offset": {
             "x": 0,
@@ -18,18 +18,24 @@
           }
         },
         {
-          "name": "replaceColor",
-          "coment": "replace crop color to transparent",
-          "search": {
-            "r": 255,
-            "g": 0,
-            "b": 0
-          },
-          "replace": {
-            "r": 231,
-            "g": 255,
-            "b": 255,
-            "a": 255
+          "name": "removeSpecialColor"
+        }
+      ]
+    },
+    {
+      "outputPath": "dist\\icon.png",
+      "rules": [
+        {
+          "name": "mergeImage",
+          "mode": "normal",
+          "comment": "demo",
+          "pathes": [
+            "workspace\\tmp_icon.png",
+            "workspace\\bg_icon.png"
+          ],
+          "offset": {
+            "x": 0,
+            "y": 0
           }
         },
         {
