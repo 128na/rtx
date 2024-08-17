@@ -1,0 +1,34 @@
+name: Build
+
+on: [push]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        npm run setup
+        sudo apt install -y simutrans-makeobj
+        wget https://github.com/128na/simutrans-image-merger/releases/download/v1.6.1/release-ubuntu-latest.zip
+        unzip release-ubuntu-latest.zip
+        mv dist/simutrans-image-merger ./
+    - name: Build pak
+      run: |
+        npm run j2 
+        npm run rtg
+        simutrans-image-merger ./workspace/tmp_merge.json
+        makeobj.exe pak256 ./dist/rtx.pak ./dist/all.dat
