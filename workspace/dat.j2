@@ -1,72 +1,75 @@
-{%- set defs = [
-    {"path": "road_30", "speed": 50, "layout": "f", "cost": 15000, "maintenance": "300", "icon": 0},
-    {"path": "road_30", "speed": 50, "layout": "c", "cost": 15000, "maintenance": "300", "icon": 1},
-    {"path": "road_30", "speed": 50, "layout": "b", "cost": 15000, "maintenance": "300", "icon": 2},
-    {"path": "road_30", "speed": 50, "layout": "s", "cost": 15000, "maintenance": "300", "icon": 3},
-    {"path": "texture_1", "speed": 1000, "layout": "t", "cost": 150, "maintenance": "3", "icon": 0},
-] %}
 {%- for def in defs %}
+{%- for system_type in def.system_types %}
+{%- for type in def.types %}
+{%- for layout in def.layouts %}
+{%- set layout_loop = loop %}
 obj=way
-name=rtx{{ def.speed | pad(3) }}{{ def.layout }}
+name={{ project }} {{ type }} {{ system_type }}{{ layout }}
 copyright=128na
-{%- if def.layout == "t" %}
+system_type={{ meta.system_types[system_type].id }}
+{%- if layout == "Ti" %}
 waytype=tram_track
+cost=25000
+maintenance=100
+topspeed=1000
 {%- else %}
 waytype=road
+cost={{ meta.types[type].cost * meta.system_types[system_type].cost }}
+maintenance={{ meta.types[type].maintenance * meta.system_types[system_type].cost }}
+topspeed={{ type }}
 {%- endif %}
-system_type=0
-cost={{ def.cost }}
-maintenance={{ def.maintenance }}
-topspeed={{ def.speed }}
 intro_year=1900
 intro_month=1
 retire_year=2999
 retire_month=1
-icon=> {{ def.path}}_icon.0.{{ def.icon }},-48,-70
-cursor={{ def.path}}_icon.1.{{ def.icon }},0,-12
-image[ns]={{ def.path }}.0.2,-64,-96
-image[ew]={{ def.path }}.0.3,-64,-96
-image[s]={{ def.path }}.0.5,-64,-96
-image[w]={{ def.path }}.0.6,-64,-96
-image[n]={{ def.path }}.0.7,-64,-96
-image[e]={{ def.path }}.0.8,-64,-96
-image[-]={{ def.path }}.0.9,-64,-96
-imageup[12]={{ def.path }}.1.0,-64,-88
-imageup[9]={{ def.path }}.1.1,-64,-88
-imageup[3]={{ def.path }}.1.2,-64,-88
-imageup[6]={{ def.path }}.1.3,-64,-88
-imageup2[12]={{ def.path }}.1.5,-64,-80
-imageup2[9]={{ def.path }}.1.6,-64,-80
-imageup2[3]={{ def.path }}.1.7,-64,-80
-imageup2[6]={{ def.path }}.1.8,-64,-80
-{%- if def.layout in ("c", "b") %}
-diagonal[sw]={{ def.path }}.2.0,-64,-96
-diagonal[nw]={{ def.path }}.2.1,-64,-96
-diagonal[ne]={{ def.path }}.2.2,-64,-96
-diagonal[se]={{ def.path }}.2.3,-64,-96
+icon=> {{ def.mode }}_{{ type }}_icon.0.{{ layout_loop.index0 }},-48,-70
+cursor={{ def.mode }}_{{ type }}_icon.1.{{ layout_loop.index0 }},0,-12
+image[ns]={{ def.mode }}_{{ type }}.0.2,-64,-96
+image[ew]={{ def.mode }}_{{ type }}.0.3,-64,-96
+image[s]={{ def.mode }}_{{ type }}.0.5,-64,-96
+image[w]={{ def.mode }}_{{ type }}.0.6,-64,-96
+image[n]={{ def.mode }}_{{ type }}.0.7,-64,-96
+image[e]={{ def.mode }}_{{ type }}.0.8,-64,-96
+image[-]={{ def.mode }}_{{ type }}.0.9,-64,-96
+imageup[12]={{ def.mode }}_{{ type }}.1.0,-64,-88
+imageup[9]={{ def.mode }}_{{ type }}.1.1,-64,-88
+imageup[3]={{ def.mode }}_{{ type }}.1.2,-64,-88
+imageup[6]={{ def.mode }}_{{ type }}.1.3,-64,-88
+imageup2[12]={{ def.mode }}_{{ type }}.1.5,-64,-80
+imageup2[9]={{ def.mode }}_{{ type }}.1.6,-64,-80
+imageup2[3]={{ def.mode }}_{{ type }}.1.7,-64,-80
+imageup2[6]={{ def.mode }}_{{ type }}.1.8,-64,-80
+{%- if layout in ("C", "B") %}
+diagonal[sw]={{ def.mode }}_{{ type }}.2.0,-64,-96
+diagonal[nw]={{ def.mode }}_{{ type }}.2.1,-64,-96
+diagonal[ne]={{ def.mode }}_{{ type }}.2.2,-64,-96
+diagonal[se]={{ def.mode }}_{{ type }}.2.3,-64,-96
 {%- else %}
-diagonal[sw]={{ def.path }}.3.0,-64,-96
-diagonal[nw]={{ def.path }}.3.1,-64,-96
-diagonal[ne]={{ def.path }}.3.2,-64,-96
-diagonal[se]={{ def.path }}.3.3,-64,-96
+diagonal[sw]={{ def.mode }}_{{ type }}.3.0,-64,-96
+diagonal[nw]={{ def.mode }}_{{ type }}.3.1,-64,-96
+diagonal[ne]={{ def.mode }}_{{ type }}.3.2,-64,-96
+diagonal[se]={{ def.mode }}_{{ type }}.3.3,-64,-96
 {%- endif %}
-{%- if def.layout in ("c", "f") %}
-image[sw]={{ def.path }}.2.5,-64,-96
-image[nw]={{ def.path }}.2.6,-64,-96
-image[ne]={{ def.path }}.2.7,-64,-96
-image[se]={{ def.path }}.2.8,-64,-96
+{%- if layout in ("C", "F") %}
+image[sw]={{ def.mode }}_{{ type }}.2.5,-64,-96
+image[nw]={{ def.mode }}_{{ type }}.2.6,-64,-96
+image[ne]={{ def.mode }}_{{ type }}.2.7,-64,-96
+image[se]={{ def.mode }}_{{ type }}.2.8,-64,-96
 {%- else %}
-image[sw]={{ def.path }}.3.5,-64,-96
-image[nw]={{ def.path }}.3.6,-64,-96
-image[ne]={{ def.path }}.3.7,-64,-96
-image[se]={{ def.path }}.3.8,-64,-96
+image[sw]={{ def.mode }}_{{ type }}.3.5,-64,-96
+image[nw]={{ def.mode }}_{{ type }}.3.6,-64,-96
+image[ne]={{ def.mode }}_{{ type }}.3.7,-64,-96
+image[se]={{ def.mode }}_{{ type }}.3.8,-64,-96
 {%- endif %}
-image[new]={{ def.path }}.4.0,-64,-96
-image[nse]={{ def.path }}.4.1,-64,-96
-image[sew]={{ def.path }}.4.2,-64,-96
-image[nsw]={{ def.path }}.4.3,-64,-96
-image[nsew]={{ def.path }}.4.4,-64,-96
+image[new]={{ def.mode }}_{{ type }}.4.0,-64,-96
+image[nse]={{ def.mode }}_{{ type }}.4.1,-64,-96
+image[sew]={{ def.mode }}_{{ type }}.4.2,-64,-96
+image[nsw]={{ def.mode }}_{{ type }}.4.3,-64,-96
+image[nsew]={{ def.mode }}_{{ type }}.4.4,-64,-96
 {%- if loop.index > 0 %}
 --------
 {%- endif %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
 {%- endfor %}

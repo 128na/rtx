@@ -1,25 +1,27 @@
-{%- set defs = [
-    {"mode": "r", "type": "road_30", "path": "road_30"},
-    {"mode": "t", "type": "texture_red", "path": "texture_1"},
-] %}
-title: rtx
-description: rtx series
+title: {{ project }}
+description: {{ project }} series
 rtg_version: 0
 options:
   interpolation_flags: 2
   resolution: 4
 files:
 {%- for def in defs %}
-  - name: "{{ def.type }}_icon"
+{%- for type in def.types %}
+  - name: "{{ def.mode }}_{{ type }}_icon"
     source:
-      path: "{{def.path}}.png"
+      path: "{{ def.mode }}_{{ type }}.png"
       default_size: 512
     dest:
-      path: "tmp_{{def.path}}_icon.png"
+      path: "tmp_{{ def.mode }}_{{ type }}_icon.png"
+{%- if def.mode in ("road") %}
       width: 1024
+{%- else %}
+      width: 256
+{%- endif %}
       height: 512
       default_size: 256
     rules:
+{%- if def.mode in ("road") %}
       - name: icon_f
         source:
           location: "2.1"
@@ -84,12 +86,30 @@ files:
           size: 128
         converts:
           - to_n
-  - name: "{{def.type}}"
+{%- else %}
+      - name: icon
+        source:
+          location: "2.1"
+        dest:
+          location: "0.0"
+          size: 128
+        converts:
+          - to_n
+      - name: cursor
+        source:
+          location: "2.1"
+        dest:
+          location: "2.0"
+          size: 128
+        converts:
+          - to_n
+{%- endif %}
+  - name: "{{ def.type }}"
     source:
-      path: "{{def.path}}.png"
+      path: "{{ def.mode }}_{{ type }}.png"
       default_size: 512
     dest:
-      path: "tmp_{{def.path}}.png"
+      path: "tmp_{{ def.mode }}_{{ type }}.png"
       width: 2560
       height: 1536
       default_size: 256
@@ -356,4 +376,5 @@ files:
           location: "4.4"
         converts:
           - to_n
+{%- endfor %}
 {%- endfor %}
