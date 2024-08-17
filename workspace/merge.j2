@@ -4,15 +4,15 @@
 {%- for def in defs %}
 {%- for type in def.types %}
     {
-      "outputPath": "dist\\{{ def.mode }}_{{ type }}.png",
+      "outputPath": "dist/{{ def.mode }}_{{ type }}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "road",
           "pathes": [
-            "workspace\\tmp_{{ def.mode }}_{{ type }}.png",
-            "workspace\\bg_road.png"
+            "workspace/tmp_{{ def.mode }}_{{ type }}.png",
+            "workspace/bg_road.png"
           ],
           "offset": {
             "x": 0,
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "outputPath": "dist\\{{ def.mode }}_{{ type }}_icon.png",
+      "outputPath": "dist/{{ def.mode }}_{{ type }}_icon.png",
       "rules": [
         {
           "name": "mergeImage",
@@ -33,13 +33,13 @@
           "comment": "icon,cursor",
           "pathes": [
 {%- if def.mode in ("texture") %}
-            "workspace\\bg_texture_icon2.png",
+            "workspace/bg_texture_icon2.png",
 {%- endif %}
-            "workspace\\tmp_{{ def.mode }}_{{ type }}_icon.png",
+            "workspace/tmp_{{ def.mode }}_{{ type }}_icon.png",
 {%- if def.mode in ("road") %}
-            "workspace\\bg_road_icon.png"
+            "workspace/bg_road_icon.png"
 {%- else %}
-            "workspace\\bg_texture_icon.png"
+            "workspace/bg_texture_icon.png"
 {%- endif %}
           ],
           "offset": {
