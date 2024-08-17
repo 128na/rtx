@@ -1,15 +1,20 @@
+{%- set defs = [
+    {"mode": "r", "type": "road_30", "path": "road_30"},
+    {"mode": "t", "type": "texture_1", "path": "texture_1"},
+] %}
 {
   "version": 1,
   "definitions": [
+{%- for def in defs %}
     {
-      "outputPath": "dist\\road.png",
+      "outputPath": "dist\\{{def.path}}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "demo",
           "pathes": [
-            "workspace\\tmp_road.png",
+            "workspace\\tmp_{{def.path}}.png",
             "workspace\\bg_road.png"
           ],
           "offset": {
@@ -23,14 +28,14 @@
       ]
     },
     {
-      "outputPath": "dist\\icon.png",
+      "outputPath": "dist\\{{def.path}}_icon.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "demo",
           "pathes": [
-            "workspace\\tmp_icon.png",
+            "workspace\\tmp_{{def.path}}_icon.png",
             "workspace\\bg_icon.png"
           ],
           "offset": {
@@ -43,5 +48,7 @@
         }
       ]
     }
+{%- if not loop.last %},{%- endif %}
+{%- endfor %}
   ]
 }

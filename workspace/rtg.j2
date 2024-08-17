@@ -1,19 +1,21 @@
----
-title: サンプル
-description: サンプル
+{%- set defs = [
+    {"mode": "r", "type": "road_30", "path": "road_30"},
+    {"mode": "t", "type": "texture_red", "path": "texture_1"},
+] %}
+title: rtx
+description: rtx series
 rtg_version: 0
 options:
-  # 変換時の補完モード https://docs.opencv.org/4.10.0/da/d54/group__imgproc__transform.html
   interpolation_flags: 2
-  # 線形変換時の拡大倍率
   resolution: 4
 files:
-  - name: "アイコン・カーソル"
+{%- for def in defs %}
+  - name: "{{ def.type }}_icon"
     source:
-      path: "texture.png"
+      path: "{{def.path}}.png"
       default_size: 512
     dest:
-      path: "tmp_icon.png"
+      path: "tmp_{{def.path}}_icon.png"
       width: 1024
       height: 512
       default_size: 256
@@ -82,12 +84,12 @@ files:
           size: 128
         converts:
           - to_n
-  - name: "市内道路"
+  - name: "{{def.type}}"
     source:
-      path: "texture.png"
+      path: "{{def.path}}.png"
       default_size: 512
     dest:
-      path: "tmp_road.png"
+      path: "tmp_{{def.path}}.png"
       width: 2560
       height: 1536
       default_size: 256
@@ -354,3 +356,4 @@ files:
           location: "4.4"
         converts:
           - to_n
+{%- endfor %}
