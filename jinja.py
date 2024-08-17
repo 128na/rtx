@@ -1,5 +1,9 @@
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+"""
+workspace内のj2ファイルをレンダリングする。標準出力に出るのでいい感じにファイル出力してください。
+"""
+
 import argparse
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="jinjaテンプレートをレンダリングする")
@@ -11,6 +15,9 @@ if __name__ == "__main__":
     )
 
     def pad(value, width, char="_"):
+        """
+        指定文字で字詰めする
+        """
         return str(value).zfill(width).replace("0", char, width - len(str(value)))
 
     env.filters["pad"] = pad
