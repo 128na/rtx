@@ -22,7 +22,7 @@ if __name__ == "__main__":
         "defs": [
             {
                 "mode": "road",
-                "types": [30, 50, 120],
+                "types": [80, 120, 160],
                 "system_types": ["G", "E"],
                 "layouts": ["F", "C", "B", "S"],
             },
@@ -35,9 +35,9 @@ if __name__ == "__main__":
         ],
         "meta": {
             "types": {
-                30: {"cost": 15000, "maintenance": 300},
-                50: {"cost": 25000, "maintenance": 500},
-                120: {"cost": 100000, "maintenance": 2000},
+                80: {"cost": 40000, "maintenance": 800},
+                120: {"cost": 60000, "maintenance": 1200},
+                160: {"cost": 80000, "maintenance": 1600},
             },
             "system_types": {
                 "G": {"id": 0, "cost": 1},

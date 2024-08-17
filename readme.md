@@ -10,18 +10,29 @@ https://github.com/128na/rtx/releases
 # 開発者向け
 
 事前にpython(3.12以上)を導入してください。
+
 ```
 git clone --recursive https://github.com/128na/rtx.git
 
 npm run setup
 ```
 
-[simutrans-image-merger.exe](https://github.com/128na/simutrans-image-merger/releases/tag/latest)をダウンロードしてこのディレクトリに設置
+- [simutrans-image-merger.exe](https://github.com/128na/simutrans-image-merger/releases/tag/latest)をダウンロードしてこのディレクトリに設置
+- pak化用のmakeobjをダウンロードして設置
+- 動作確認用のsimutransをダウンロードして設置、ショットカットを設置
 
 ```
-npm run build
+┗simutrans
+    ┗simutrans.exe
+    ┗pak128
+┗simutrans.lnk
+┗makeobj.exe
+┗simutrans-image-merger.exe
 ```
 
+```
+npm run dev
+```
 
 ## info
 
