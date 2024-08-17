@@ -9,9 +9,9 @@ copyright=128na
 system_type={{ meta.system_types[system_type].id }}
 {%- if layout == "Ti" %}
 waytype=tram_track
-cost=25000
-maintenance=100
-topspeed=1000
+cost=15000
+maintenance=300
+topspeed=6000
 {%- else %}
 waytype=road
 cost={{ meta.types[type].cost * meta.system_types[system_type].cost }}

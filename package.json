@@ -13,7 +13,7 @@
     "rtg": "python rtg/main.py ./workspace/tmp_rtg.yml",
     "merge": "simutrans-image-merger.exe ./workspace/tmp_merge.json",
     "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
-    "simu": "simu.lnk",
+    "simu": "simutrans.lnk",
     "dev": "npm run build && npm run makeobj:dev && npm run simu && npm run dev",
     "build": "npm run j2 && npm run rtg && npm run merge"
   },
