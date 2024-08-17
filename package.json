@@ -1,7 +1,7 @@
 {
-  "name": "simu_road",
+  "name": "rtx",
   "version": "1.0.0",
-  "description": "",
+  "description": "road and texture extension pack",
   "main": "index.js",
   "scripts": {
     "setup": "pip install -r rtg/requirements.txt && pip install -r requirements.txt",
@@ -12,11 +12,11 @@
     "j2": "npm run j2:rtg && npm run j2:im && npm run j2:dat",
     "rtg": "python rtg/main.py ./workspace/tmp_rtg.yml",
     "merge": "simutrans-image-merger.exe ./workspace/tmp_merge.json",
-    "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
-    "simu": "simutrans.lnk",
-    "dev": "npm run build && npm run makeobj:dev && npm run simu && npm run dev",
+    "makeobj": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
+    "simutrans": "simutrans.lnk",
+    "dev": "npm run build && npm run makeobj && npm run simutrans && npm run dev",
     "build": "npm run j2 && npm run rtg && npm run merge"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "128Na",
+  "license": "MIT"
 }
