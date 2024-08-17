@@ -22,20 +22,19 @@ jobs:
         sudo apt install -y simutrans-makeobj
         wget https://github.com/128na/simutrans-image-merger/releases/download/v1.6.1/release-ubuntu-latest.zip
         unzip release-ubuntu-latest.zip
+        rm release-ubuntu-latest.zip
         mv dist/simutrans-image-merger ./
     - name: Build pak
-      run: |
-        npm run j2 
-        npm run rtg
-        ./simutrans-image-merger ./workspace/tmp_merge.json
-        makeobj pak256 ./dist/rtx.pak ./dist/all.dat
+      run: npm run build 
+
     - name: Create ZIP file
       run: |
         TAG_NAME=$(echo "${GITHUB_REF##*/}")
-        zip -r "release-$TAG_NAME.zip" ./dist
+        cd dist
+        zip -r "../release-$TAG_NAME.zip" ./*
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: release-zip
-        path: release-*.zip
+        name: "release-$TAG_NAME.zip"
+        path: "release-$TAG_NAME.zip"

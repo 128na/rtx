@@ -11,11 +11,13 @@
     "j2:im": "python jinja.py merge.j2 > workspace/tmp_merge.json",
     "j2": "npm run j2:rtg && npm run j2:im && npm run j2:dat",
     "rtg": "python rtg/main.py ./workspace/tmp_rtg.yml",
-    "merge": "simutrans-image-merger.exe ./workspace/tmp_merge.json",
-    "makeobj": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
+    "merge:dev": "simutrans-image-merger.exe ./workspace/tmp_merge.json",
+    "merge": "./simutrans-image-merger ./workspace/tmp_merge.json",
+    "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
+    "makeobj": "makeobj pak256 ./dist/rtx.pak ./dist/all.dat",
     "simutrans": "simutrans.lnk",
-    "dev": "npm run build && npm run makeobj && npm run simutrans && npm run dev",
-    "build": "npm run j2 && npm run rtg && npm run merge"
+    "dev": "npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && npm run dev",
+    "build": "npm run j2 && npm run rtg && npm run merge && npm run makeobj"
   },
   "author": "128Na",
   "license": "MIT"
