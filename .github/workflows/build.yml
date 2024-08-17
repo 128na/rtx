@@ -27,5 +27,5 @@ jobs:
       run: |
         npm run j2 
         npm run rtg
-        simutrans-image-merger ./workspace/tmp_merge.json
+        ./simutrans-image-merger ./workspace/tmp_merge.json
         makeobj.exe pak256 ./dist/rtx.pak ./dist/all.dat
