@@ -1,4 +1,4 @@
-name: Build
+name: Release
 
 on:
   push:
@@ -30,6 +30,14 @@ jobs:
         mv dist/simutrans-image-merger ./
     - name: Build pak
       run: npm run build 
+
+    - name: add readme
+      run: |
+        cd dist
+        mkdir src
+        mv *.pak ./src/
+        cp ../readme.txt ./
+
 
     - name: Create ZIP file
       run: |
