@@ -35,7 +35,7 @@ if __name__ == "__main__":
             },
             {
                 "mode": "texture",
-                "types": [1, 2, 3, 4, 5],
+                "types": [1, 2, 3, 4, 5, 6],
                 "system_types": ["G"],
                 "layouts": ["Ti"],
             },

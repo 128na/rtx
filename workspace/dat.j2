@@ -50,16 +50,16 @@ diagonal[nw]={{ def.mode }}_{{ type }}.3.1,-64,-96
 diagonal[ne]={{ def.mode }}_{{ type }}.3.2,-64,-96
 diagonal[se]={{ def.mode }}_{{ type }}.3.3,-64,-96
 {%- endif %}
-{%- if layout in ("C", "F") %}
-image[sw]={{ def.mode }}_{{ type }}.2.5,-64,-96
-image[nw]={{ def.mode }}_{{ type }}.2.6,-64,-96
-image[ne]={{ def.mode }}_{{ type }}.2.7,-64,-96
-image[se]={{ def.mode }}_{{ type }}.2.8,-64,-96
+{%- if layout in ("C", "B") %}
+image[sw]={{ def.mode }}_{{ type }}.2.0,-64,-96
+image[nw]={{ def.mode }}_{{ type }}.2.1,-64,-96
+image[ne]={{ def.mode }}_{{ type }}.2.2,-64,-96
+image[se]={{ def.mode }}_{{ type }}.2.3,-64,-96
 {%- else %}
-image[sw]={{ def.mode }}_{{ type }}.3.5,-64,-96
-image[nw]={{ def.mode }}_{{ type }}.3.6,-64,-96
-image[ne]={{ def.mode }}_{{ type }}.3.7,-64,-96
-image[se]={{ def.mode }}_{{ type }}.3.8,-64,-96
+image[sw]={{ def.mode }}_{{ type }}.3.0,-64,-96
+image[nw]={{ def.mode }}_{{ type }}.3.1,-64,-96
+image[ne]={{ def.mode }}_{{ type }}.3.2,-64,-96
+image[se]={{ def.mode }}_{{ type }}.3.3,-64,-96
 {%- endif %}
 image[new]={{ def.mode }}_{{ type }}.4.0,-64,-96
 image[nse]={{ def.mode }}_{{ type }}.4.1,-64,-96
