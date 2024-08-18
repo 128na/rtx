@@ -15,8 +15,8 @@
     "merge": "./simutrans-image-merger ./workspace/tmp_merge.json",
     "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
     "makeobj": "makeobj pak256 ./dist/rtx.pak ./dist/all.dat",
-    "simutrans": "simutrans.lnk",
-    "dev": "npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && npm run dev",
+    "simutrans": "start /B ./simutrans/simutrans.exe",
+    "dev": "npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && pause && npm run dev",
     "build": "npm run j2 && npm run rtg && npm run merge && npm run makeobj"
   },
   "author": "128Na",

@@ -21,13 +21,12 @@ npm run setup
 
 - [simutrans-image-merger.exe](https://github.com/128na/simutrans-image-merger/releases/tag/latest)をダウンロードしてこのディレクトリに設置
 - pak化用のmakeobjをダウンロードして設置
-- 動作確認用のsimutransをダウンロードして設置、ショットカットを設置
+- 動作確認用のsimutransをダウンロードして設置
 
 ```
 ┗simutrans
     ┗simutrans.exe
     ┗pak128
-┗simutrans.lnk
 ┗makeobj.exe
 ┗simutrans-image-merger.exe
 ```
