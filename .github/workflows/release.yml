@@ -36,8 +36,9 @@ jobs:
       run: |
         cd dist
         mkdir src
-        mv *.pak ./src/
+        find ./ -type f ! -name 'rtx.pak' -exec mv {} src/ \;
         cp ../readme.txt ./
+        cp ../thumb.png ./
 
 
     - name: Create ZIP file

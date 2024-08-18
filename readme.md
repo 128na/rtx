@@ -1,6 +1,8 @@
+![サムネイル](./thumb.png)
+
 # road and texture extension pack
 
-道路と半透過の路面舗装アドオンのセット
+SIS, ISS互換の道路と路面舗装アドオンセットです。
 
 # 導入
 
