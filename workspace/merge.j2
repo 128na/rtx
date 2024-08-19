@@ -1,17 +1,16 @@
 {
   "version": 1,
   "definitions": [
-{%- for def in defs %}
-{%- for type in def.types %}
+{%- for file in files %}
     {
-      "outputPath": "dist/{{ def.mode }}_{{ type }}.png",
+      "outputPath": "dist/texture_{{ file }}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "road",
           "pathes": [
-            "workspace/tmp_{{ def.mode }}_{{ type }}.png",
+            "workspace/tmp_texture_{{ file }}.png",
             "workspace/bg_road.png"
           ],
           "offset": {
@@ -25,21 +24,20 @@
       ]
     },
     {
-      "outputPath": "dist/{{ def.mode }}_{{ type }}_icon.png",
+      "outputPath": "dist/texture_{{ file }}_icon.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "icon,cursor",
           "pathes": [
-{%- if def.mode in ("texture") %}
+{%- if file < 1000 %}
             "workspace/bg_texture_icon2.png",
-{%- endif %}
-            "workspace/tmp_{{ def.mode }}_{{ type }}_icon.png",
-{%- if def.mode in ("road") %}
-            "workspace/bg_road_icon.png"
-{%- else %}
+            "workspace/tmp_texture_{{ file }}_icon.png",
             "workspace/bg_texture_icon.png"
+{%- else %}
+            "workspace/tmp_texture_{{ file }}_icon.png",
+            "workspace/bg_road_icon.png"
 {%- endif %}
           ],
           "offset": {
@@ -56,8 +54,6 @@
         }
       ]
     }
-{%- if not loop.last %},{%- endif %}
-{%- endfor %}
 {%- if not loop.last %},{%- endif %}
 {%- endfor %}
   ]

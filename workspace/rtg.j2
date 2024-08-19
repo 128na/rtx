@@ -1,27 +1,43 @@
-title: {{ project }}
-description: {{ project }} series
+title: RTX
+description: RTX series
 rtg_version: 0
 options:
   interpolation_flags: 2
   resolution: 4
 files:
-{%- for def in defs %}
-{%- for type in def.types %}
-  - name: "{{ def.mode }}_{{ type }}_icon"
+{%- for file in files %}
+  - name: "{{ file }}_icon"
     source:
-      path: "{{ def.mode }}_{{ type }}.png"
+      path: "texture_{{ file }}.png"
       default_size: 512
     dest:
-      path: "tmp_{{ def.mode }}_{{ type }}_icon.png"
-{%- if def.mode in ("road") %}
-      width: 1024
-{%- else %}
+      path: "tmp_texture_{{ file }}_icon.png"
+{%- if file < 1000 %}
       width: 256
+{%- else %}
+      width: 1024
 {%- endif %}
       height: 512
       default_size: 256
     rules:
-{%- if def.mode in ("road") %}
+{%- if file < 1000 %}
+      - name: icon
+        source:
+          location: "2.1"
+        dest:
+          location: "0.0"
+          size: 128
+        converts:
+          - to_n
+      - name: cursor
+        source:
+          location: "2.1"
+        dest:
+          location: "2.0"
+          size: 128
+        converts:
+          - to_n
+{%- else %}
       - name: icon_f
         source:
           location: "2.1"
@@ -86,30 +102,13 @@ files:
           size: 128
         converts:
           - to_n
-{%- else %}
-      - name: icon
-        source:
-          location: "2.1"
-        dest:
-          location: "0.0"
-          size: 128
-        converts:
-          - to_n
-      - name: cursor
-        source:
-          location: "2.1"
-        dest:
-          location: "2.0"
-          size: 128
-        converts:
-          - to_n
 {%- endif %}
-  - name: "{{ def.type }}"
+  - name: "{{ file }}"
     source:
-      path: "{{ def.mode }}_{{ type }}.png"
+      path: "texture_{{ file }}.png"
       default_size: 512
     dest:
-      path: "tmp_{{ def.mode }}_{{ type }}.png"
+      path: "tmp_texture_{{ file }}.png"
       width: 2560
       height: 1536
       default_size: 256
@@ -376,5 +375,4 @@ files:
           location: "4.4"
         converts:
           - to_n
-{%- endfor %}
 {%- endfor %}

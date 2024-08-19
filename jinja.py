@@ -3,6 +3,7 @@ workspace内のj2ファイルをレンダリングする。標準出力に出る
 """
 
 import argparse
+import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 if __name__ == "__main__":
@@ -24,32 +25,15 @@ if __name__ == "__main__":
 
     template = env.get_template(args.file_name)
 
-    data = {
-        "project": "RTX",
-        "defs": [
-            {
-                "mode": "road",
-                "types": [2080, 3080, 4080],
-                "system_types": ["G", "E"],
-                "layouts": ["F", "C", "B", "S"],
-            },
-            {
-                "mode": "texture",
-                "types": [1, 2, 3, 4, 5, 6],
-                "system_types": ["G"],
-                "layouts": ["Ti"],
-            },
-        ],
+    with open("./workspace/projects.yml", "r", encoding="utf-8") as file:
+        data = yaml.safe_load(file)
+
+    meta = {
         "meta": {
-            "types": {
-                2080: {"cost": 400000, "maintenance": 8000},
-                3080: {"cost": 800000, "maintenance": 16000},
-                4080: {"cost": 1600000, "maintenance": 32000},
-            },
             "system_types": {
                 "G": {"id": 0, "cost": 1},
                 "E": {"id": 1, "cost": 5},
             },
         },
     }
-    print(template.render(data))
+    print(template.render(data | meta))
