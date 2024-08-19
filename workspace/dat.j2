@@ -36,22 +36,28 @@ imageup2[6]=texture_{{ series.file }}.1.8,-64,-80
 {%- if layout in ("C", "B") %}
 diagonal[sw]=texture_{{ series.file }}.2.0,-64,-96
 diagonal[nw]=texture_{{ series.file }}.2.1,-64,-96
-diagonal[ne]=texture_{{ series.file }}.2.2,-64,-96
-diagonal[se]=texture_{{ series.file }}.2.3,-64,-96
 {%- else %}
 diagonal[sw]=texture_{{ series.file }}.3.0,-64,-96
 diagonal[nw]=texture_{{ series.file }}.3.1,-64,-96
+{%- endif %}
+{%- if layout in ("C", "F") %}
+diagonal[ne]=texture_{{ series.file }}.2.2,-64,-96
+diagonal[se]=texture_{{ series.file }}.2.3,-64,-96
+{%- else %}
 diagonal[ne]=texture_{{ series.file }}.3.2,-64,-96
 diagonal[se]=texture_{{ series.file }}.3.3,-64,-96
 {%- endif %}
 {%- if layout in ("C", "B") %}
 image[sw]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}5{%- else %}0{%- endif %},-64,-96
 image[nw]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}6{%- else %}1{%- endif %},-64,-96
-image[ne]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}7{%- else %}2{%- endif %},-64,-96
-image[se]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}8{%- else %}3{%- endif %},-64,-96
 {%- else %}
 image[sw]=texture_{{ series.file }}.3.{%- if series.name < 1000 %}5{%- else %}0{%- endif %},-64,-96
 image[nw]=texture_{{ series.file }}.3.{%- if series.name < 1000 %}6{%- else %}1{%- endif %},-64,-96
+{%- endif %}
+{%- if layout in ("C", "F") %}
+image[ne]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}7{%- else %}2{%- endif %},-64,-96
+image[se]=texture_{{ series.file }}.2.{%- if series.name < 1000 %}8{%- else %}3{%- endif %},-64,-96
+{%- else %}
 image[ne]=texture_{{ series.file }}.3.{%- if series.name < 1000 %}7{%- else %}2{%- endif %},-64,-96
 image[se]=texture_{{ series.file }}.3.{%- if series.name < 1000 %}8{%- else %}3{%- endif %},-64,-96
 {%- endif %}
@@ -109,15 +115,15 @@ diagonal[nw]=texture_{{ file.name }}.2.1,-64,-96
 diagonal[ne]=texture_{{ file.name }}.2.2,-64,-96
 diagonal[se]=texture_{{ file.name }}.2.3,-64,-96
 {%- if series < 50 %}{# 低速 #}
-image[sw]=texture_{{ file.name }}.2.0,-64,-96
-image[nw]=texture_{{ file.name }}.2.1,-64,-96
-image[ne]=texture_{{ file.name }}.2.2,-64,-96
-image[se]=texture_{{ file.name }}.2.3,-64,-96
-{%- else %}
 image[sw]=texture_{{ file.name }}.2.5,-64,-96
 image[nw]=texture_{{ file.name }}.2.6,-64,-96
 image[ne]=texture_{{ file.name }}.2.7,-64,-96
 image[se]=texture_{{ file.name }}.2.8,-64,-96
+{%- else %}
+image[sw]=texture_{{ file.name }}.2.0,-64,-96
+image[nw]=texture_{{ file.name }}.2.1,-64,-96
+image[ne]=texture_{{ file.name }}.2.2,-64,-96
+image[se]=texture_{{ file.name }}.2.3,-64,-96
 {%- endif %}
 image[new]=texture_{{ file.name }}.4.0,-64,-96
 image[nse]=texture_{{ file.name }}.4.1,-64,-96
