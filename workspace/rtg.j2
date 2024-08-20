@@ -2,8 +2,8 @@ title: RTX
 description: RTX series
 rtg_version: 0
 options:
-  interpolation_flags: 2
-  resolution: 4
+  interpolation_flags: 3
+  resolution: 2
 files:
 {%- for file in files %}
   - name: "{{ file }}_icon"
@@ -12,7 +12,7 @@ files:
       default_size: 512
     dest:
       path: "tmp_texture_{{ file }}_icon.png"
-{%- if file < 1000 %}
+{%- if file < 100 %}
       width: 256
 {%- else %}
       width: 1024
@@ -20,7 +20,7 @@ files:
       height: 512
       default_size: 256
     rules:
-{%- if file < 1000 %}
+{%- if file < 100 %}
       - name: icon
         source:
           location: "2.1"
