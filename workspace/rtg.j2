@@ -6,21 +6,29 @@ options:
   resolution: 2
 files:
 {%- for file in files %}
-  - name: "{{ file }}_icon"
+  - name: "{{ file.name }}_icon"
     source:
-      path: "texture_{{ file }}.png"
+{%- if "source" in file %}
+      path: "texture_{{ file.source }}.png"
+{%- else %}
+      path: "texture_{{ file.name }}.png"
+{%- endif %}
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file }}_icon.png"
-{%- if file < 100 %}
+      path: "tmp_texture_{{ file.name }}_icon.png"
+{%- if file.name < 100 %}
       width: 256
 {%- else %}
       width: 1024
 {%- endif %}
       height: 512
       default_size: 256
+{%- if "shift" in file %}
+    after_apply:
+      - [shift, {{ file.shift }}]
+{%- endif %}
     rules:
-{%- if file < 100 %}
+{%- if file.name < 100 %}
       - name: icon
         source:
           location: "2.1"
@@ -103,15 +111,23 @@ files:
         converts:
           - to_n
 {%- endif %}
-  - name: "{{ file }}"
+  - name: "{{ file.name }}"
     source:
-      path: "texture_{{ file }}.png"
+{%- if "source" in file %}
+      path: "texture_{{ file.source }}.png"
+{%- else %}
+      path: "texture_{{ file.name }}.png"
+{%- endif %}
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file }}.png"
+      path: "tmp_texture_{{ file.name }}.png"
       width: 2560
       height: 1536
       default_size: 256
+{%- if "shift" in file %}
+    after_apply:
+      - [shift, {{ file.shift }}]
+{%- endif %}
     rules:
       - name: ns
         source:

@@ -3,14 +3,14 @@
   "definitions": [
 {%- for file in files %}
     {
-      "outputPath": "dist/texture_{{ file }}.png",
+      "outputPath": "dist/texture_{{ file.name }}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "road",
           "pathes": [
-            "workspace/tmp_texture_{{ file }}.png",
+            "workspace/tmp_texture_{{ file.name }}.png",
             "workspace/bg_road.png"
           ],
           "offset": {
@@ -24,19 +24,19 @@
       ]
     },
     {
-      "outputPath": "dist/texture_{{ file }}_icon.png",
+      "outputPath": "dist/texture_{{ file.name }}_icon.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
           "comment": "icon,cursor",
           "pathes": [
-{%- if file < 100 %}
+{%- if file.name < 100 %}
             "workspace/bg_texture_icon2.png",
-            "workspace/tmp_texture_{{ file }}_icon.png",
+            "workspace/tmp_texture_{{ file.name }}_icon.png",
             "workspace/bg_texture_icon.png"
 {%- else %}
-            "workspace/tmp_texture_{{ file }}_icon.png",
+            "workspace/tmp_texture_{{ file.name }}_icon.png",
             "workspace/bg_road_icon.png"
 {%- endif %}
           ],

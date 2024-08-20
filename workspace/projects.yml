@@ -1,33 +1,34 @@
-files: [4080, 3080, 2080, 580, 680, 780, 1, 2, 3, 4, 5, 6, 11, 21]
-
-roads:
-  - name: "GTX"
-    series: [580, 680, 780]
-  - name: "RTX"
-    series: [4080, 3080, 2080]
-textures:
-  - name: "Ti"
-    files:
-      - name: 1
-        series: [1, 51]
-      - name: 11
-        series: [11]
-        # 片側舗装手前のみ
-        front: true
-      - name: 21
-        series: [21]
-        # 片側舗装奥のみ
-        back: true
-      - name: 2
-        series: [2, 52]
-      - name: 3
-        series: [3, 53]
-      - name: 4
-        series: [4, 54]
-      - name: 5
-        series: [5, 55]
-      - name: 6
-        series: [6, 56]
+files:
+  - name: 4080
+  - name: 3080
+  - name: 2080
+  - name: 580
+  - name: 680
+  - name: 780
+  - name: 1
+    source: 1
+    shift: 0
+  - name: 2
+    source: 1
+    shift: 209
+  - name: 3
+    source: 1
+    shift: 145
+  - name: 4
+    source: 1
+    shift: 41
+  - name: 5
+    source: 5
+    shift: 0
+  - name: 6
+    source: 5
+    shift: 41
+  - name: 11
+    source: 11
+    shift: 0
+  - name: 21
+    source: 21
+    shift: 0
 
 dats:
   - className: RTX
