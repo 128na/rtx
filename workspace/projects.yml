@@ -28,3 +28,25 @@ textures:
         series: [5, 55]
       - name: 6
         series: [6, 56]
+
+dats:
+  - className: RTX
+    pattern:
+      speed: [4080, 3080, 2080, 580, 680, 780]
+      system_type: ["G", "E"]
+      layout: ["F", "C", "B", "S"]
+  - className: GTX
+    pattern:
+      speed: [580, 680, 780]
+      system_type: ["G", "E"]
+      layout: ["F", "C", "B", "S"]
+  - className: Ti
+    pattern:
+      texture: [1, 2, 3, 4, 5, 6]
+      speed: [3000, 6000]
+      layout: ["D"]
+  - className: Ti
+    pattern:
+      texture: [11]
+      speed: [3000, 6000]
+      layout: ["F", "B"]

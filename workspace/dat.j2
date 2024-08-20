@@ -1,168 +1,20 @@
-# 道路
-{%- for road in roads %}
-{%- for series in road.series %}
-{%- for system_type in ["G", "E"] %}
-{%- for layout in ["F", "C", "B", "S"] %}
-{%- set layout_loop = loop %}
+{%- for dat in dats %}
 obj=way
-name={{ road.name }} {{ series}} {{ system_type }}{{ layout }}
+name={{ dat.get_full_name() }}
 copyright=128na
-system_type={{ meta.system_types[system_type].id }}
-waytype=road
-topspeed={{ series}}
-cost={{ series* 50 * meta.system_types[system_type].cost }}
-maintenance={{ series* meta.system_types[system_type].cost }}
+system_type={{ dat.get_system_type() }}
+waytype={{ dat.get_waytype() }}
+topspeed={{ dat.get_topspeed() }}
+cost={{ dat.get_cost() }}
+maintenance={{ dat.get_maintenance() }}
 intro_year=1900
 intro_month=1
 retire_year=2999
 retire_month=1
-icon=> texture_{{ series }}_icon.0.{{ layout_loop.index0 }},-48,-70
-cursor=texture_{{ series }}_icon.1.{{ layout_loop.index0 }},0,-12
-image[ns]=texture_{{ series }}.0.2,-64,-96
-image[ew]=texture_{{ series }}.0.3,-64,-96
-image[s]=texture_{{ series }}.0.5,-64,-96
-image[w]=texture_{{ series }}.0.6,-64,-96
-image[n]=texture_{{ series }}.0.7,-64,-96
-image[e]=texture_{{ series }}.0.8,-64,-96
-image[-]=texture_{{ series }}.0.9,-64,-96
-imageup[12]=texture_{{ series }}.1.0,-64,-88
-imageup[9]=texture_{{ series }}.1.1,-64,-88
-imageup[3]=texture_{{ series }}.1.2,-64,-88
-imageup[6]=texture_{{ series }}.1.3,-64,-88
-imageup2[12]=texture_{{ series }}.1.5,-64,-80
-imageup2[9]=texture_{{ series }}.1.6,-64,-80
-imageup2[3]=texture_{{ series }}.1.7,-64,-80
-imageup2[6]=texture_{{ series }}.1.8,-64,-80
-{%- if layout in ("C", "B") %}
-diagonal[sw]=texture_{{ series }}.2.0,-64,-96
-diagonal[nw]=texture_{{ series }}.2.1,-64,-96
-{%- else %}
-diagonal[sw]=texture_{{ series }}.3.0,-64,-96
-diagonal[nw]=texture_{{ series }}.3.1,-64,-96
-{%- endif %}
-{%- if layout in ("C", "F") %}
-diagonal[ne]=texture_{{ series }}.2.2,-64,-96
-diagonal[se]=texture_{{ series }}.2.3,-64,-96
-{%- else %}
-diagonal[ne]=texture_{{ series }}.3.2,-64,-96
-diagonal[se]=texture_{{ series }}.3.3,-64,-96
-{%- endif %}
-{%- if layout in ("C", "B") %}
-image[sw]=texture_{{ series }}.2.{%- if series < 1000 %}5{%- else %}0{%- endif %},-64,-96
-image[nw]=texture_{{ series }}.2.{%- if series < 1000 %}6{%- else %}1{%- endif %},-64,-96
-{%- else %}
-image[sw]=texture_{{ series }}.3.{%- if series < 1000 %}5{%- else %}0{%- endif %},-64,-96
-image[nw]=texture_{{ series }}.3.{%- if series < 1000 %}6{%- else %}1{%- endif %},-64,-96
-{%- endif %}
-{%- if layout in ("C", "F") %}
-image[ne]=texture_{{ series }}.2.{%- if series < 1000 %}7{%- else %}2{%- endif %},-64,-96
-image[se]=texture_{{ series }}.2.{%- if series < 1000 %}8{%- else %}3{%- endif %},-64,-96
-{%- else %}
-image[ne]=texture_{{ series }}.3.{%- if series < 1000 %}7{%- else %}2{%- endif %},-64,-96
-image[se]=texture_{{ series }}.3.{%- if series < 1000 %}8{%- else %}3{%- endif %},-64,-96
-{%- endif %}
-image[new]=texture_{{ series }}.4.0,-64,-96
-image[nse]=texture_{{ series }}.4.1,-64,-96
-image[sew]=texture_{{ series }}.4.2,-64,-96
-image[nsw]=texture_{{ series }}.4.3,-64,-96
-image[nsew]=texture_{{ series }}.4.4,-64,-96
+icon=> texture_{{ dat.get_image_path() }}_icon.0.{{ dat.get_icon_index() }},-48,-70
+cursor=texture_{{ dat.get_image_path() }}_icon.1.{{ dat.get_icon_index() }},0,-12
+{%- for i in dat.get_images() %}
+{{ i[0] }}[{{ i[1] }}]=texture_{{ i[2] }}.{{ i[3] }}.{{ i[4] }},{{ i[5] }},{{ i[6] }}
+{%- endfor %}
 --------
-{%- endfor %}
-{%- endfor %}
-{%- endfor %}
-{%- endfor %}
-# 路面舗装
-{%- for texture in textures %}
-{%- for file in texture.files %}
-{%- for series in file.series %}
-obj=way
-name={{ texture.name }} {{ series }}
-copyright=128na
-system_type=0
-waytype=tram_track
-{%- if series < 50 %}{# 低速 #}
-topspeed=3000
-cost=5000
-maintenance=100
-{%- else %}
-topspeed=6000
-cost=15000
-maintenance=300
-{%- endif %}
-intro_year=1900
-intro_month=1
-retire_year=2999
-retire_month=1
-icon=> texture_{{ file.name }}_icon.0.0,-48,-70
-cursor=texture_{{ file.name }}_icon.1.0,0,-12
-image[ns]=texture_{{ file.name }}.0.2,-64,-96
-image[ew]=texture_{{ file.name }}.0.3,-64,-96
-image[s]=texture_{{ file.name }}.0.5,-64,-96
-image[w]=texture_{{ file.name }}.0.6,-64,-96
-{%- if "front" in file %}{# 片側舗装は逆転する #}
-image[n]=texture_{{ file.name+10 }}.0.7,-64,-96
-image[e]=texture_{{ file.name+10 }}.0.8,-64,-96
-{%- elif "back" in file %}
-image[n]=texture_{{ file.name-10 }}.0.7,-64,-96
-image[e]=texture_{{ file.name-10 }}.0.8,-64,-96
-{%- else %}
-image[n]=texture_{{ file.name }}.0.7,-64,-96
-image[e]=texture_{{ file.name }}.0.8,-64,-96
-{%- endif %}
-image[-]=texture_{{ file.name }}.0.9,-64,-96
-imageup[12]=texture_{{ file.name }}.1.0,-64,-88
-imageup[9]=texture_{{ file.name }}.1.1,-64,-88
-imageup[3]=texture_{{ file.name }}.1.2,-64,-88
-imageup[6]=texture_{{ file.name }}.1.3,-64,-88
-imageup2[12]=texture_{{ file.name }}.1.5,-64,-80
-imageup2[9]=texture_{{ file.name }}.1.6,-64,-80
-imageup2[3]=texture_{{ file.name }}.1.7,-64,-80
-imageup2[6]=texture_{{ file.name }}.1.8,-64,-80
-diagonal[sw]=texture_{{ file.name }}.2.0,-64,-96
-diagonal[nw]=texture_{{ file.name }}.2.1,-64,-96
-{%- if "front" in file %}{# 片側舗装は逆転する #}
-diagonal[ne]=texture_{{ file.name+10 }}.2.2,-64,-96
-diagonal[se]=texture_{{ file.name+10 }}.2.3,-64,-96
-{%- elif "back" in file %}
-diagonal[ne]=texture_{{ file.name-10 }}.2.2,-64,-96
-diagonal[se]=texture_{{ file.name-10 }}.2.3,-64,-96
-{%- else %}
-diagonal[ne]=texture_{{ file.name }}.2.2,-64,-96
-diagonal[se]=texture_{{ file.name }}.2.3,-64,-96
-{%- endif %}
-{%- if series < 50 %}{# 低速 #}
-image[sw]=texture_{{ file.name }}.2.5,-64,-96
-image[nw]=texture_{{ file.name }}.2.6,-64,-96
-{%- if "front" in file %}{# 片側舗装は逆転する #}
-image[ne]=texture_{{ file.name+10 }}.2.7,-64,-96
-image[se]=texture_{{ file.name+10 }}.2.8,-64,-96
-{%- elif "back" in file %}
-image[ne]=texture_{{ file.name-10 }}.2.7,-64,-96
-image[se]=texture_{{ file.name-10 }}.2.8,-64,-96
-{%- else %}
-image[ne]=texture_{{ file.name }}.2.7,-64,-96
-image[se]=texture_{{ file.name }}.2.8,-64,-96
-{%- endif %}
-{%- else %}
-image[sw]=texture_{{ file.name }}.2.0,-64,-96
-image[nw]=texture_{{ file.name }}.2.1,-64,-96
-{%- if "front" in file %}{# 片側舗装は逆転する #}
-image[ne]=texture_{{ file.name }}.2.2,-64,-96
-image[se]=texture_{{ file.name }}.2.3,-64,-96
-{%- elif "back" in file %}
-image[ne]=texture_{{ file.name }}.2.2,-64,-96
-image[se]=texture_{{ file.name }}.2.3,-64,-96
-{%- else %}
-image[ne]=texture_{{ file.name }}.2.2,-64,-96
-image[se]=texture_{{ file.name }}.2.3,-64,-96
-{%- endif %}
-{%- endif %}
-image[new]=texture_{{ file.name }}.4.0,-64,-96
-image[nse]=texture_{{ file.name }}.4.1,-64,-96
-image[sew]=texture_{{ file.name }}.4.2,-64,-96
-image[nsw]=texture_{{ file.name }}.4.3,-64,-96
-image[nsew]=texture_{{ file.name }}.4.4,-64,-96
---------
-{%- endfor %}
-{%- endfor %}
 {%- endfor %}
