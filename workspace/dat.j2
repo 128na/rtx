@@ -99,8 +99,16 @@ image[ns]=texture_{{ file.name }}.0.2,-64,-96
 image[ew]=texture_{{ file.name }}.0.3,-64,-96
 image[s]=texture_{{ file.name }}.0.5,-64,-96
 image[w]=texture_{{ file.name }}.0.6,-64,-96
+{%- if "front" in file %}{# 片側舗装は逆転する #}
+image[n]=texture_{{ file.name+10 }}.0.7,-64,-96
+image[e]=texture_{{ file.name+10 }}.0.8,-64,-96
+{%- elif "back" in file %}
+image[n]=texture_{{ file.name-10 }}.0.7,-64,-96
+image[e]=texture_{{ file.name-10 }}.0.8,-64,-96
+{%- else %}
 image[n]=texture_{{ file.name }}.0.7,-64,-96
 image[e]=texture_{{ file.name }}.0.8,-64,-96
+{%- endif %}
 image[-]=texture_{{ file.name }}.0.9,-64,-96
 imageup[12]=texture_{{ file.name }}.1.0,-64,-88
 imageup[9]=texture_{{ file.name }}.1.1,-64,-88
@@ -112,18 +120,42 @@ imageup2[3]=texture_{{ file.name }}.1.7,-64,-80
 imageup2[6]=texture_{{ file.name }}.1.8,-64,-80
 diagonal[sw]=texture_{{ file.name }}.2.0,-64,-96
 diagonal[nw]=texture_{{ file.name }}.2.1,-64,-96
+{%- if "front" in file %}{# 片側舗装は逆転する #}
+diagonal[ne]=texture_{{ file.name+10 }}.2.2,-64,-96
+diagonal[se]=texture_{{ file.name+10 }}.2.3,-64,-96
+{%- elif "back" in file %}
+diagonal[ne]=texture_{{ file.name-10 }}.2.2,-64,-96
+diagonal[se]=texture_{{ file.name-10 }}.2.3,-64,-96
+{%- else %}
 diagonal[ne]=texture_{{ file.name }}.2.2,-64,-96
 diagonal[se]=texture_{{ file.name }}.2.3,-64,-96
+{%- endif %}
 {%- if series < 50 %}{# 低速 #}
 image[sw]=texture_{{ file.name }}.2.5,-64,-96
 image[nw]=texture_{{ file.name }}.2.6,-64,-96
+{%- if "front" in file %}{# 片側舗装は逆転する #}
+image[ne]=texture_{{ file.name+10 }}.2.7,-64,-96
+image[se]=texture_{{ file.name+10 }}.2.8,-64,-96
+{%- elif "back" in file %}
+image[ne]=texture_{{ file.name-10 }}.2.7,-64,-96
+image[se]=texture_{{ file.name-10 }}.2.8,-64,-96
+{%- else %}
 image[ne]=texture_{{ file.name }}.2.7,-64,-96
 image[se]=texture_{{ file.name }}.2.8,-64,-96
+{%- endif %}
 {%- else %}
 image[sw]=texture_{{ file.name }}.2.0,-64,-96
 image[nw]=texture_{{ file.name }}.2.1,-64,-96
+{%- if "front" in file %}{# 片側舗装は逆転する #}
 image[ne]=texture_{{ file.name }}.2.2,-64,-96
 image[se]=texture_{{ file.name }}.2.3,-64,-96
+{%- elif "back" in file %}
+image[ne]=texture_{{ file.name }}.2.2,-64,-96
+image[se]=texture_{{ file.name }}.2.3,-64,-96
+{%- else %}
+image[ne]=texture_{{ file.name }}.2.2,-64,-96
+image[se]=texture_{{ file.name }}.2.3,-64,-96
+{%- endif %}
 {%- endif %}
 image[new]=texture_{{ file.name }}.4.0,-64,-96
 image[nse]=texture_{{ file.name }}.4.1,-64,-96
