@@ -7,6 +7,55 @@ import sys
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+class RTG:
+    d: dict
+    def __init__(self, data) -> None:
+        self.d = data
+
+    def get_name(self):
+        return self.d["speed"]
+
+    def get_source(self):
+        return self.d["speed"]
+
+    def get_shift(self):
+        return 0
+
+    def get_icon_width(self):
+        return 1024
+    
+    def single_icon(self):
+        return False
+
+class RTGRoad(RTG):
+    pass
+
+class RTGTexture(RTG):
+    def get_name(self):
+        return self.d["source"]+self.d["color"]
+
+    def get_source(self):
+        return self.d["source"]
+
+    def get_shift(self):
+        match self.d["color"]:
+            case 0:
+                return 0
+            case 1:
+                return 209
+            case 2:
+                return 145
+            case 3:
+                return 41
+            case _:
+                return 0
+
+
+    def get_icon_width(self):
+        return 256
+
+    def single_icon(self):
+        return True
 
 class Dat:
     name: str
@@ -105,11 +154,11 @@ class Dat:
         return x
 
 
-class RTX(Dat):
+class DatRTX(Dat):
     name = "RTX"
 
 
-class GTX(Dat):
+class DatGTX(Dat):
     name = "GTX"
 
     def get_images(self):
@@ -126,7 +175,7 @@ class GTX(Dat):
         return images
 
 
-class Ti(Dat):
+class DatTi(Dat):
     name = "Ti"
     def get_full_name(self):
         return f"{self.name} {self.get_name()} {self.d["layout"]}"
@@ -215,15 +264,15 @@ class Ti(Dat):
 import itertools
 
 
-def resolve_dats(dats: list):
+def resolve_class(defs: list):
     resolved = []
-    for dat in dats:
-        pattern = dat.get("pattern")
+    for d in defs:
+        pattern = d.get("pattern")
         keys = pattern.keys()
         combinations = itertools.product(*pattern.values())
         matrix = [dict(zip(keys, combo)) for combo in combinations]
         for m in matrix:
-            resolved.append(getattr(sys.modules[__name__], dat.get("className"))(m))
+            resolved.append(getattr(sys.modules[__name__], d.get("className"))(m))
     return resolved
 
 
@@ -256,6 +305,7 @@ if __name__ == "__main__":
                 "E": {"id": 1, "cost": 5},
             },
         },
-        "dats": resolve_dats(data["dats"]),
+        "rtgs": resolve_class(data["rtgs"]),
+        "dats": resolve_class(data["dats"]),
     }
     print(template.render(data | meta))

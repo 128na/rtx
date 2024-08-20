@@ -1,53 +1,63 @@
-files:
-  - name: 4080
-  - name: 3080
-  - name: 2080
-  - name: 580
-  - name: 680
-  - name: 780
-  - name: 1
-    source: 1
-    shift: 0
-  - name: 2
-    source: 1
-    shift: 209
-  - name: 3
-    source: 1
-    shift: 145
-  - name: 4
-    source: 1
-    shift: 41
-  - name: 5
-    source: 5
-    shift: 0
-  - name: 6
-    source: 5
-    shift: 41
-  - name: 11
-    source: 11
-    shift: 0
-  - name: 21
-    source: 21
-    shift: 0
+merges: [
+    4080,
+    3080,
+    2080,
+    580,
+    680,
+    780,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13,
+    14,
+    # 15,
+    # 16,
+    # 17,
+    # 18,
+    21,
+    22,
+    23,
+    24,
+    # 25,
+    # 26,
+    # 27,
+    # 28,
+  ]
+
+rtgs:
+  - className: RTGRoad
+    pattern:
+      speed: [4080, 3080, 2080, 580, 680, 780]
+  - className: RTGTexture
+    pattern:
+      source: [1, 5, 11, 21]
+      color: [0, 1, 2, 3]
 
 dats:
-  - className: RTX
+  - className: DatRTX
     pattern:
       speed: [4080, 3080, 2080, 580, 680, 780]
       system_type: ["G", "E"]
       layout: ["F", "C", "B", "S"]
-  - className: GTX
+  - className: DatGTX
     pattern:
       speed: [580, 680, 780]
       system_type: ["G", "E"]
       layout: ["F", "C", "B", "S"]
-  - className: Ti
+  - className: DatTi
     pattern:
-      texture: [1, 2, 3, 4, 5, 6]
+      texture: [1, 2, 3, 4, 5, 6, 7, 8]
       speed: [3000, 6000]
       layout: ["D"]
-  - className: Ti
+  - className: DatTi
     pattern:
-      texture: [11]
+      texture: [11, 12, 13, 14]
       speed: [3000, 6000]
       layout: ["F", "B"]

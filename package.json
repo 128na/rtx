@@ -10,7 +10,7 @@
     "j2:rtg": "python jinja.py rtg.j2 > workspace/tmp_rtg.yml",
     "j2:merge": "python jinja.py merge.j2 > workspace/tmp_merge.json",
     "j2": "npm run j2:rtg && npm run j2:merge && npm run j2:dat",
-    "rtg": "python rtg/main.py ./workspace/tmp_rtg.yml",
+    "rtg": "python rtg/main.py --debug ./workspace/tmp_rtg.yml",
     "merge:dev": "simutrans-image-merger.exe ./workspace/tmp_merge.json",
     "merge": "./simutrans-image-merger ./workspace/tmp_merge.json",
     "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",

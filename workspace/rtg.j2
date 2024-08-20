@@ -5,30 +5,22 @@ options:
   interpolation_flags: 3
   resolution: 2
 files:
-{%- for file in files %}
-  - name: "{{ file.name }}_icon"
+{%- for file in rtgs %}
+  - name: "{{ file.get_name() }}_icon"
     source:
-{%- if "source" in file %}
-      path: "texture_{{ file.source }}.png"
-{%- else %}
-      path: "texture_{{ file.name }}.png"
-{%- endif %}
+      path: "texture_{{ file.get_source() }}.png"
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file.name }}_icon.png"
-{%- if file.name < 100 %}
-      width: 256
-{%- else %}
-      width: 1024
-{%- endif %}
+      path: "tmp_texture_{{ file.get_name() }}_icon.png"
+      width: {{ file.get_icon_width() }}
       height: 512
       default_size: 256
-{%- if "shift" in file %}
+{%- if file.get_shift() != 0 %}
     after_apply:
-      - [shift, {{ file.shift }}]
+      - [shift, {{ file.get_shift() }}]
 {%- endif %}
     rules:
-{%- if file.name < 100 %}
+{%- if file.single_icon() %}
       - name: icon
         source:
           location: "2.1"
@@ -111,22 +103,18 @@ files:
         converts:
           - to_n
 {%- endif %}
-  - name: "{{ file.name }}"
+  - name: "{{ file.get_name() }}"
     source:
-{%- if "source" in file %}
-      path: "texture_{{ file.source }}.png"
-{%- else %}
-      path: "texture_{{ file.name }}.png"
-{%- endif %}
+      path: "texture_{{ file.get_source() }}.png"
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file.name }}.png"
+      path: "tmp_texture_{{ file.get_name() }}.png"
       width: 2560
       height: 1536
       default_size: 256
-{%- if "shift" in file %}
+{%- if file.get_shift() != 0 %}
     after_apply:
-      - [shift, {{ file.shift }}]
+      - [shift, {{ file.get_shift() }}]
 {%- endif %}
     rules:
       - name: ns
@@ -298,7 +286,6 @@ files:
           location: "2.8"
         converts:
           - to_n
-
       - name: diagonal_edge_sw
         source:
           location: "2.0"
@@ -355,7 +342,6 @@ files:
           location: "3.8"
         converts:
           - to_n
-
       - name: new
         source:
           location: "1.2"
