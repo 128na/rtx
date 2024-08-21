@@ -10,7 +10,7 @@
           "mode": "normal",
           "comment": "road",
           "pathes": [
-            "workspace/tmp_texture_{{ file }}.png",
+            ".build/texture_{{ file }}.png",
             "workspace/bg_road.png"
           ],
           "offset": {
@@ -33,10 +33,10 @@
           "pathes": [
 {%- if file < 100 %}
             "workspace/bg_texture_icon2.png",
-            "workspace/tmp_texture_{{ file }}_icon.png",
+            ".build/texture_{{ file }}_icon.png",
             "workspace/bg_texture_icon.png"
 {%- else %}
-            "workspace/tmp_texture_{{ file }}_icon.png",
+            ".build/texture_{{ file }}_icon.png",
             "workspace/bg_road_icon.png"
 {%- endif %}
           ],

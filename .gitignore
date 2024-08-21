@@ -2,3 +2,5 @@ tmp*
 *.exe
 simutrans
 dist
+.build
+__pycache__

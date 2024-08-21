@@ -178,7 +178,7 @@ class DatTi(Dat):
     name = "Ti"
 
     def get_full_name(self):
-        return f"{self.name} {self.get_name()} {self.d["layout"]}"
+        return f"{self.name} {self.get_name()}"
 
     def get_name(self):
         match self.d["speed"]:
@@ -208,6 +208,49 @@ class DatTi(Dat):
         return 0
 
     def get_image_path(self):
+        return self.d["texture"]
+
+    def get_images(self):
+        return [
+            ["image", "ns", self.get_image_path(), 0, 2, -64, -96],
+            ["image", "ew", self.get_image_path(), 0, 3, -64, -96],
+            ["image", "s", self.get_image_path(), 0, 5, -64, -96],
+            ["image", "w", self.get_image_path(), 0, 6, -64, -96],
+            ["image", "n", self.get_image_path(), 0, 7, -64, -96],
+            ["image", "e", self.get_image_path(), 0, 8, -64, -96],
+            ["image", "-", self.get_image_path(), 0, 9, -64, -96],
+            ["imageup", "12", self.get_image_path(), 1, 0, -64, -88],
+            ["imageup", "9", self.get_image_path(), 1, 1, -64, -88],
+            ["imageup", "3", self.get_image_path(), 1, 2, -64, -88],
+            ["imageup", "6", self.get_image_path(), 1, 3, -64, -88],
+            ["imageup2", "12", self.get_image_path(), 1, 5, -64, -80],
+            ["imageup2", "9", self.get_image_path(), 1, 6, -64, -80],
+            ["imageup2", "3", self.get_image_path(), 1, 7, -64, -80],
+            ["imageup2", "6", self.get_image_path(), 1, 8, -64, -80],
+            ["diagonal", "sw", self.get_image_path(), 2, 0, -64, -96],
+            ["diagonal", "nw", self.get_image_path(), 2, 1, -64, -96],
+            ["image", "sw", self.get_image_path(), 2, self.get_curve_x(0), -64, -96],
+            ["image", "nw", self.get_image_path(), 2, self.get_curve_x(1), -64, -96],
+            ["image", "ne", self.get_image_path(), 2, self.get_curve_x(2), -64, -96],
+            ["image", "se", self.get_image_path(), 2, self.get_curve_x(3), -64, -96],
+            ["image", "new", self.get_image_path(), 4, 0, -64, -96],
+            ["image", "nse", self.get_image_path(), 4, 1, -64, -96],
+            ["image", "sew", self.get_image_path(), 4, 2, -64, -96],
+            ["image", "nsw", self.get_image_path(), 4, 3, -64, -96],
+            ["image", "nsew", self.get_image_path(), 4, 4, -64, -96],
+        ]
+
+    def get_curve_x(self, x: int):
+        """
+        直角カーブは曲線
+        """
+        return x if self.d["speed"] == 6000 else x + 5
+
+class DatTiSingle(DatTi):
+    def get_full_name(self):
+        return f"{self.name} {self.get_name()} {self.d["layout"]}"
+
+    def get_image_path(self):
         """
         方角によっては左右が反転する
         """
@@ -221,39 +264,14 @@ class DatTi(Dat):
         return self.d["texture"]
 
     def get_images(self):
-        return [
-            ["image", "ns", self.get_image_path(), 0, 2, -64, -96],
-            ["image", "ew", self.get_image_path(), 0, 3, -64, -96],
-            ["image", "s", self.get_image_path(), 0, 5, -64, -96],
-            ["image", "w", self.get_image_path(), 0, 6, -64, -96],
+        images = super().get_images()
+        images[4:6] = [
             ["image", "n", self.flip(), 0, 7, -64, -96],
             ["image", "e", self.flip(), 0, 8, -64, -96],
-            ["image", "-", self.get_image_path(), 0, 9, -64, -96],
-            ["imageup", "12", self.get_image_path(), 1, 0, -64, -88],
-            ["imageup", "9", self.get_image_path(), 1, 1, -64, -88],
-            ["imageup", "3", self.get_image_path(), 1, 2, -64, -88],
-            ["imageup", "6", self.get_image_path(), 1, 3, -64, -88],
-            ["imageup2", "12", self.get_image_path(), 1, 5, -64, -80],
-            ["imageup2", "9", self.get_image_path(), 1, 6, -64, -80],
-            ["imageup2", "3", self.get_image_path(), 1, 7, -64, -80],
-            ["imageup2", "6", self.get_image_path(), 1, 8, -64, -80],
-            ["diagonal", "sw", self.get_image_path(), 2, 0, -64, -96],
-            ["diagonal", "nw", self.get_image_path(), 2, 1, -64, -96],
-            ["diagonal", "ne", self.flip(), 2, 2, -64, -96],
-            ["diagonal", "se", self.flip(), 2, 3, -64, -96],
-            ["image", "sw", self.get_image_path(), 2, self.get_curve_x(0), -64, -96],
-            ["image", "nw", self.get_image_path(), 2, self.get_curve_x(1), -64, -96],
+        ]
+        images[19:21] = [
             ["image", "ne", self.flip(), 2, self.get_curve_x(2), -64, -96],
             ["image", "se", self.flip(), 2, self.get_curve_x(3), -64, -96],
-            ["image", "new", self.get_image_path(), 4, 0, -64, -96],
-            ["image", "nse", self.get_image_path(), 4, 1, -64, -96],
-            ["image", "sew", self.get_image_path(), 4, 2, -64, -96],
-            ["image", "nsw", self.get_image_path(), 4, 3, -64, -96],
-            ["image", "nsew", self.get_image_path(), 4, 4, -64, -96],
         ]
+        return images
 
-    def get_curve_x(self, x: int):
-        """
-        直角カーブは曲線
-        """
-        return x if self.d["speed"] == 6000 else x + 5

@@ -43,7 +43,7 @@ rtgs:
 dats:
   - className: DatRTX
     pattern:
-      speed: [4080, 3080, 2080, 580, 680, 780]
+      speed: [4080, 3080, 2080]
       system_type: ["G", "E"]
       layout: ["F", "C", "B", "S"]
   - className: DatGTX
@@ -55,8 +55,7 @@ dats:
     pattern:
       texture: [1, 2, 3, 4, 5, 6, 7, 8]
       speed: [3000, 6000]
-      layout: ["D"]
-  - className: DatTi
+  - className: DatTiSingle
     pattern:
       texture: [11, 12, 13, 14]
       speed: [3000, 6000]

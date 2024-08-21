@@ -8,10 +8,10 @@ files:
 {%- for file in rtgs %}
   - name: "{{ file.get_name() }}_icon"
     source:
-      path: "texture_{{ file.get_source() }}.png"
+      path: "../workspace/texture_{{ file.get_source() }}.png"
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file.get_name() }}_icon.png"
+      path: "texture_{{ file.get_name() }}_icon.png"
       width: {{ file.get_icon_width() }}
       height: 512
       default_size: 256
@@ -105,10 +105,10 @@ files:
 {%- endif %}
   - name: "{{ file.get_name() }}"
     source:
-      path: "texture_{{ file.get_source() }}.png"
+      path: "../workspace/texture_{{ file.get_source() }}.png"
       default_size: 512
     dest:
-      path: "tmp_texture_{{ file.get_name() }}.png"
+      path: "texture_{{ file.get_name() }}.png"
       width: 2560
       height: 1536
       default_size: 256
