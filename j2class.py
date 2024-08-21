@@ -246,6 +246,7 @@ class DatTi(Dat):
         """
         return x if self.d["speed"] == 6000 else x + 5
 
+
 class DatTiSingle(DatTi):
     def get_full_name(self):
         return f"{self.name} {self.get_name()} {self.d["layout"]}"
@@ -274,4 +275,3 @@ class DatTiSingle(DatTi):
             ["image", "se", self.flip(), 2, self.get_curve_x(3), -64, -96],
         ]
         return images
-
