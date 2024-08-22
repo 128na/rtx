@@ -5,7 +5,7 @@ options:
   interpolation_flags: 3
   resolution: 2
 files:
-{%- for file in rtgs %}
+{%- for file in items %}
   - name: "{{ file.get_name() }}_icon"
     source:
       path: "../workspace/texture_{{ file.get_source() }}.png"

@@ -1,3 +1,12 @@
+class Merge:
+    def __init__(self, data) -> None:
+        self.d = data
+
+    def get_name(self):
+        return self.d["file"]
+    def is_texture(self):
+        return self.d["file"] < 100
+
 class RTG:
     d: dict
 
@@ -43,6 +52,21 @@ class RTGTexture(RTG):
                 return 41  # 黄
             case _:
                 return 0
+
+    def get_icon_width(self):
+        return 256
+
+    def single_icon(self):
+        return True
+
+
+
+class RTGSidewark(RTG):
+    def get_name(self):
+        return f"s_{self.d["source"]}"
+
+    def get_source(self):
+        return f"s_{self.d["source"]}"
 
     def get_icon_width(self):
         return 256

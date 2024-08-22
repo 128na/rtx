@@ -1,62 +1,76 @@
-merges: [
-    4080,
-    3080,
-    2080, # RTX
-    580,
-    680,
-    780, # GTX
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-  ]
+merges:
 
-rtgs:
-  - className: RTGRoad
-    pattern:
-      speed: [4080, 3080, 2080, 580, 680, 780]
-  - className: RTGTexture
-    pattern:
-      source: [1, 5, 11, 15, 21, 25]
-      color: [0, 1, 2, 3]
-
-dats:
-  - className: DatRTX
-    pattern:
-      speed: [4080, 3080, 2080]
-      system_type: ["G", "E"]
-      layout: ["F", "C", "B", "S"]
-  - className: DatGTX
-    pattern:
-      speed: [580, 680, 780]
-      system_type: ["G", "E"]
-      layout: ["F", "C", "B", "S"]
-  - className: DatTi
-    pattern:
-      texture: [1, 2, 3, 4, 5, 6, 7, 8]
-      speed: [3000, 6000]
-  - className: DatTiSingle
-    pattern:
-      texture: [11, 12, 13, 14, 15, 16, 17, 18]
-      speed: [3000, 6000]
-      layout: ["F", "B"]
+projects:
+  - source: workspace/rtg.j2
+    dest: .build/rtg.yml
+    items:
+      - className: RTGRoad
+        pattern:
+          speed: [4080, 3080, 2080, 580, 680, 780]
+      - className: RTGTexture
+        pattern:
+          source: [1, 5, 11, 15, 21, 25]
+          color: [0, 1, 2, 3]
+      # - className: RTGSidewark
+      #   pattern:
+      #     source: [1]
+  - source: workspace/merge.j2
+    dest: .build/merge.json
+    items:
+      - className: Merge
+        pattern:
+          file:
+            [
+              4080,
+              3080,
+              2080,
+              580,
+              680,
+              780,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+            ]
+  - source: workspace/dat.j2
+    dest: .build/all.dat
+    items:
+      - className: DatRTX
+        pattern:
+          speed: [4080, 3080, 2080]
+          system_type: ["G", "E"]
+          layout: ["F", "C", "B", "S"]
+      - className: DatGTX
+        pattern:
+          speed: [580, 680, 780]
+          system_type: ["G", "E"]
+          layout: ["F", "C", "B", "S"]
+      - className: DatTi
+        pattern:
+          texture: [1, 2, 3, 4, 5, 6, 7, 8]
+          speed: [3000, 6000]
+      - className: DatTiSingle
+        pattern:
+          texture: [11, 12, 13, 14, 15, 16, 17, 18]
+          speed: [3000, 6000]
+          layout: ["F", "B"]

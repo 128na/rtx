@@ -24,34 +24,18 @@ def resolve_class(defs: list):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="jinjaテンプレートをレンダリングする")
-    parser.add_argument("file_name", help="ファイルのパス")
     args = parser.parse_args()
 
-    env = Environment(
-        loader=FileSystemLoader("workspace"), autoescape=select_autoescape()
-    )
-
-    def pad(value, width, char="_"):
-        """
-        指定文字で字詰めする
-        """
-        return str(value).zfill(width).replace("0", char, width - len(str(value)))
-
-    env.filters["pad"] = pad
-
-    template = env.get_template(args.file_name)
+    env = Environment(loader=FileSystemLoader("./"), autoescape=select_autoescape())
 
     with open("./workspace/projects.yml", "r", encoding="utf-8") as file:
         data = yaml.safe_load(file)
 
-    meta = {
-        "meta": {
-            "system_types": {
-                "G": {"id": 0, "cost": 1},
-                "E": {"id": 1, "cost": 5},
-            },
-        },
-        "rtgs": resolve_class(data["rtgs"]),
-        "dats": resolve_class(data["dats"]),
-    }
-    print(template.render(data | meta))
+    for prj in data["projects"]:
+        template = env.get_template(prj["source"])
+        resolved = {
+            "items": resolve_class(prj["items"]),
+        }
+        rendered = template.render(resolved)
+        with open(prj["dest"], "w") as file:
+            file.write(rendered)
