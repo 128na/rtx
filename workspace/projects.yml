@@ -1,76 +1,54 @@
-merges:
-
 projects:
   - source: workspace/rtg.j2
     dest: .build/rtg.yml
     items:
-      - className: RTGRoad
-        pattern:
-          speed: [4080, 3080, 2080, 580, 680, 780]
-      - className: RTGTexture
-        pattern:
-          source: [1, 5, 11, 15, 21, 25]
-          color: [0, 1, 2, 3]
-      # - className: RTGSidewark
+      # - className: RTGRoad
       #   pattern:
-      #     source: [1]
+      #     speed: [4080, 3080, 2080, 580, 680, 780]
+      # - className: RTGTexture
+      #   pattern:
+      #     source: [1, 5, 11, 15, 21, 25]
+      #     color: [0, 1, 2, 3]
+      - className: RTGSidewalk
+        pattern:
+          source: [1, 2, 3, 4, 5, 6]
   - source: workspace/merge.j2
     dest: .build/merge.json
     items:
-      - className: Merge
+      # - className: MergeRoad
+      #   pattern:
+      #     source: [4080, 3080, 2080, 580, 680, 780]
+      # - className: MergeTexture
+      #   pattern:
+      #     source: [1, 5, 11, 15, 21, 25]
+      #     color: [0, 1, 2, 3]
+      - className: MergeSidewalk
         pattern:
-          file:
-            [
-              4080,
-              3080,
-              2080,
-              580,
-              680,
-              780,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              11,
-              12,
-              13,
-              14,
-              15,
-              16,
-              17,
-              18,
-              21,
-              22,
-              23,
-              24,
-              25,
-              26,
-              27,
-              28,
-            ]
+          source: [1, 2, 3, 4, 5, 6]
   - source: workspace/dat.j2
-    dest: .build/all.dat
+    dest: dist/all.dat
     items:
-      - className: DatRTX
+      # - className: DatRTX
+      #   pattern:
+      #     speed: [4080, 3080, 2080]
+      #     system_type: ["G", "E"]
+      #     layout: ["F", "C", "B", "S"]
+      # - className: DatGTX
+      #   pattern:
+      #     speed: [580, 680, 780]
+      #     system_type: ["G", "E"]
+      #     layout: ["F", "C", "B", "S"]
+      # - className: DatTi
+      #   pattern:
+      #     texture: [1, 2, 3, 4, 5, 6, 7, 8]
+      #     speed: [3000, 6000]
+      # - className: DatTiSingle
+      #   pattern:
+      #     texture: [11, 12, 13, 14, 15, 16, 17, 18]
+      #     speed: [3000, 6000]
+      #     layout: ["F", "B"]
+      - className: DatFX
         pattern:
-          speed: [4080, 3080, 2080]
-          system_type: ["G", "E"]
-          layout: ["F", "C", "B", "S"]
-      - className: DatGTX
-        pattern:
-          speed: [580, 680, 780]
-          system_type: ["G", "E"]
-          layout: ["F", "C", "B", "S"]
-      - className: DatTi
-        pattern:
-          texture: [1, 2, 3, 4, 5, 6, 7, 8]
-          speed: [3000, 6000]
-      - className: DatTiSingle
-        pattern:
-          texture: [11, 12, 13, 14, 15, 16, 17, 18]
-          speed: [3000, 6000]
-          layout: ["F", "B"]
+          speed: [1, 2, 3, 4, 5, 6]
+          system_type: ["G"]
+          layout: ["C"]

@@ -1,12 +1,3 @@
-class Merge:
-    def __init__(self, data) -> None:
-        self.d = data
-
-    def get_name(self):
-        return self.d["file"]
-    def is_texture(self):
-        return self.d["file"] < 100
-
 class RTG:
     d: dict
 
@@ -16,17 +7,52 @@ class RTG:
     def get_name(self):
         return self.d["speed"]
 
-    def get_source(self):
-        return self.d["speed"]
+    def get_source_path(self):
+        return f"texture_{ self.d["speed"] }"
+
+    def get_dest_path(self):
+        return f"texture_{ self.d["speed"] }"
 
     def get_shift(self):
         return 0
 
     def get_icon_width(self):
-        return 1024
+        return self.get_icons().__len__
 
     def single_icon(self):
         return False
+
+    def get_icons(self):
+        return [
+            {
+                "suffix": "_f",
+                "source": "2.1",
+                "dest": "0.0",
+                "dest_cur": "2.0",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_c",
+                "source": "2.1",
+                "dest": "0.2",
+                "dest_cur": "2.2",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_b",
+                "source": "2.1",
+                "dest": "0.4",
+                "dest_cur": "2.4",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_s",
+                "source": "2.1",
+                "dest": "0.6",
+                "dest_cur": "2.6",
+                "converts": ["to_n"],
+            },
+        ]
 
 
 class RTGRoad(RTG):
@@ -37,8 +63,11 @@ class RTGTexture(RTG):
     def get_name(self):
         return self.d["source"] + self.d["color"]
 
-    def get_source(self):
-        return self.d["source"]
+    def get_source_path(self):
+        return f"texture_{ self.d["source"] }"
+
+    def get_dest_path(self):
+        return f"texture_{ self.get_name() }"
 
     def get_shift(self):
         match self.d["color"]:
@@ -53,26 +82,102 @@ class RTGTexture(RTG):
             case _:
                 return 0
 
-    def get_icon_width(self):
-        return 256
+    def get_icons(self):
+        return [
+            {
+                "suffix": "",
+                "source": "2.1",
+                "dest": "0.0",
+                "dest_cur": "2.0",
+                "converts": ["to_n"],
+            },
+        ]
 
-    def single_icon(self):
-        return True
 
-
-
-class RTGSidewark(RTG):
+class RTGSidewalk(RTG):
     def get_name(self):
-        return f"s_{self.d["source"]}"
+        return self.d["source"]
 
-    def get_source(self):
-        return f"s_{self.d["source"]}"
+    def get_source_path(self):
+        return f"sidewalk_{ self.get_name() }"
 
-    def get_icon_width(self):
-        return 256
+    def get_dest_path(self):
+        return f"sidewalk_{ self.get_name() }"
 
-    def single_icon(self):
+    def get_icons(self):
+        return [
+            {
+                "suffix": "_f",
+                "source": "0.0",
+                "dest": "0.0",
+                "dest_cur": "2.0",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_c",
+                "source": "0.0",
+                "dest": "0.2",
+                "dest_cur": "2.2",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_b",
+                "source": "0.0",
+                "dest": "0.4",
+                "dest_cur": "2.4",
+                "converts": ["to_n"],
+            },
+            {
+                "suffix": "_s",
+                "source": "0.0",
+                "dest": "0.6",
+                "dest_cur": "2.6",
+                "converts": ["to_n"],
+            },
+        ]
+
+
+class Merge:
+    def __init__(self, data) -> None:
+        self.d = data
+
+    def get_source_path(self):
+        return f"texture_{ self.d["source"] }"
+
+    def get_dest_path(self):
+        return f"texture_{ self.d["source"] }"
+
+    def is_texture(self):
+        return False
+
+
+class MergeRoad(Merge):
+    pass
+
+
+class MergeTexture(Merge):
+    def get_name(self):
+        return self.d["source"] + self.d["color"]
+
+    def get_source_path(self):
+        return f"texture_{ self.get_name() }"
+
+    def get_dest_path(self):
+        return f"texture_{ self.get_name() }"
+
+    def is_texture(self):
         return True
+
+
+class MergeSidewalk(Merge):
+    def get_name(self):
+        return self.d["source"]
+
+    def get_source_path(self):
+        return f"sidewalk_{ self.get_name() }"
+
+    def get_dest_path(self):
+        return f"sidewalk_{ self.get_name() }"
 
 
 class Dat:
@@ -122,7 +227,7 @@ class Dat:
                 return 0
 
     def get_image_path(self):
-        return self.d["speed"]
+        return f"texture_{ self.d["speed"] }"
 
     def get_images(self):
 
@@ -299,3 +404,40 @@ class DatTiSingle(DatTi):
             ["image", "se", self.flip(), 2, self.get_curve_x(3), -64, -96],
         ]
         return images
+
+
+class DatFX(Dat):
+    name = "FX"
+
+    def get_image_path(self):
+        return f"sidewalk_{ self.d["speed"] }"
+
+    def get_images(self):
+        return [
+            ["image", "ns", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "ew", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "s", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "w", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "n", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "e", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "-", self.get_image_path(), 0, 9, -64, -96],
+            ["imageup", "12", self.get_image_path(), 0, 9, -64, -88],
+            ["imageup", "9", self.get_image_path(), 0, 9, -64, -88],
+            ["imageup", "3", self.get_image_path(), 0, 9, -64, -88],
+            ["imageup", "6", self.get_image_path(), 0, 9, -64, -88],
+            ["imageup2", "12", self.get_image_path(), 0, 9, -64, -80],
+            ["imageup2", "9", self.get_image_path(), 0, 9, -64, -80],
+            ["imageup2", "3", self.get_image_path(), 0, 9, -64, -80],
+            ["imageup2", "6", self.get_image_path(), 0, 9, -64, -80],
+            ["diagonal", "sw", self.get_image_path(), 0, 9, -64, -96],
+            ["diagonal", "nw", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "sw", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "nw", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "ne", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "se", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "new", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "nse", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "sew", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "nsw", self.get_image_path(), 0, 9, -64, -96],
+            ["image", "nsew", self.get_image_path(), 0, 9, -64, -96],
+        ]

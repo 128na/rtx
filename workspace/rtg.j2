@@ -8,11 +8,11 @@ files:
 {%- for file in items %}
   - name: "{{ file.get_name() }}_icon"
     source:
-      path: "../workspace/texture_{{ file.get_source() }}.png"
+      path: "../workspace/{{ file.get_source_path() }}.png"
       default_size: 512
     dest:
-      path: "texture_{{ file.get_name() }}_icon.png"
-      width: {{ file.get_icon_width() }}
+      path: "{{ file.get_dest_path() }}_icon.png"
+      width: {{ (file.get_icons() | length) * 256 }}
       height: 512
       default_size: 256
 {%- if file.get_shift() != 0 %}
@@ -20,95 +20,34 @@ files:
       - [shift, {{ file.get_shift() }}]
 {%- endif %}
     rules:
-{%- if file.single_icon() %}
-      - name: icon
+{%- for icon in file.get_icons() %}
+      - name: icon{{ icon.suffix }}
         source:
-          location: "2.1"
+          location: "{{ icon.source }}"
         dest:
-          location: "0.0"
+          location: "{{ icon.dest }}"
           size: 128
         converts:
-          - to_n
-      - name: cursor
+{%- for convert in icon.converts %}
+          - {{ convert }}
+{%- endfor %}
+      - name: cursor{{ icon.suffix }}
         source:
-          location: "2.1"
+          location: "{{ icon.source }}"
         dest:
-          location: "2.0"
+          location: "{{ icon.dest_cur }}"
           size: 128
         converts:
-          - to_n
-{%- else %}
-      - name: icon_f
-        source:
-          location: "2.1"
-        dest:
-          location: "0.0"
-          size: 128
-        converts:
-          - to_n
-      - name: cursor_f
-        source:
-          location: "2.1"
-        dest:
-          location: "2.0"
-          size: 128
-        converts:
-          - to_n
-      - name: icon_c
-        source:
-          location: "2.1"
-        dest:
-          location: "0.2"
-          size: 128
-        converts:
-          - to_n
-      - name: cursor_c
-        source:
-          location: "2.1"
-        dest:
-          location: "2.2"
-          size: 128
-        converts:
-          - to_n
-      - name: icon_b
-        source:
-          location: "2.1"
-        dest:
-          location: "0.4"
-          size: 128
-        converts:
-          - to_n
-      - name: cursor_b
-        source:
-          location: "2.1"
-        dest:
-          location: "2.4"
-          size: 128
-        converts:
-          - to_n
-      - name: icon_s
-        source:
-          location: "2.1"
-        dest:
-          location: "0.6"
-          size: 128
-        converts:
-          - to_n
-      - name: cursor_s
-        source:
-          location: "2.1"
-        dest:
-          location: "2.6"
-          size: 128
-        converts:
-          - to_n
-{%- endif %}
+{%- for convert in icon.converts %}
+          - {{ convert }}
+{%- endfor %}
+{%- endfor %}
   - name: "{{ file.get_name() }}"
     source:
-      path: "../workspace/texture_{{ file.get_source() }}.png"
+      path: "../workspace/{{ file.get_source_path() }}.png"
       default_size: 512
     dest:
-      path: "texture_{{ file.get_name() }}.png"
+      path: "{{ file.get_dest_path() }}.png"
       width: 2560
       height: 1536
       default_size: 256
