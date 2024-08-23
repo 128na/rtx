@@ -43,13 +43,22 @@ jobs:
         cp ../thumb.png ./
 
 
+    - name: Upload artifact
+      if: startsWith(github.ref, 'refs/tags/') == false
+      uses: actions/upload-artifact@v4
+      with:
+        name: "build"
+        path: "dist"
+
     - name: Create ZIP file
+      if: startsWith(github.ref, 'refs/tags/') == true
       run: |
         TAG_NAME=$( git describe --tags --abbrev=0 )
         cd dist
         zip -r "../rtx-$TAG_NAME.zip" ./*
 
     - name: Release
+      if: startsWith(github.ref, 'refs/tags/') == true
       uses: softprops/action-gh-release@v2
       with:
         fail_on_unmatched_files: true
