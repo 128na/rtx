@@ -385,13 +385,13 @@ class DatTiSingle(DatTi):
         方角によっては左右が反転する
         """
         if self.d["layout"] == "B":
-            return self.d["texture"] + 10
-        return self.d["texture"]
+            return f"texture_{self.d["texture"] + 10}"
+        return f"texture_{self.d["texture"]}"
 
     def flip(self):
         if self.d["layout"] == "F":
-            return self.d["texture"] + 10
-        return self.d["texture"]
+            return f"texture_{self.d["texture"] + 10}"
+        return f"texture_{self.d["texture"]}"
 
     def get_images(self):
         images = super().get_images()
