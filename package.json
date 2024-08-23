@@ -9,7 +9,7 @@
     "pylint:fix": "black *.py",
     "rtg:update": "git submodule update --remote",
     "j2": "python jinja.py",
-    "rtg": "python rtg/main.py --debug ./.build/rtg.yml",
+    "rtg": "python rtg/main.py --debug ./.build/*.yml",
     "merge:dev": "simutrans-image-merger.exe ./.build/merge.json",
     "merge": "./simutrans-image-merger ./.build/merge.json",
     "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
