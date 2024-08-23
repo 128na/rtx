@@ -33,9 +33,9 @@ if __name__ == "__main__":
 
     for prj in data["projects"]:
         template = env.get_template(prj["source"])
-        resolved = {
+        resolvedItems = {
             "items": resolve_class(prj["items"]),
         }
-        rendered = template.render(resolved)
-        with open(prj["dest"], "w") as file:
+        rendered = template.render(resolvedItems)
+        with open(prj["dest"], "w", encoding="utf-8") as file:
             file.write(rendered)
