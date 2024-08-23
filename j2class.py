@@ -337,7 +337,7 @@ class DatTi(Dat):
         return 0
 
     def get_image_path(self):
-        return self.d["texture"]
+        return f"texture_{ self.d["texture"] }"
 
     def get_images(self):
         return [
@@ -406,11 +406,11 @@ class DatTiSingle(DatTi):
         return images
 
 
-class DatFX(Dat):
+class DatFX(DatTi):
     name = "FX"
 
     def get_image_path(self):
-        return f"sidewalk_{ self.d["speed"] }"
+        return f"sidewalk_{ self.d["texture"] }"
 
     def get_images(self):
         return [

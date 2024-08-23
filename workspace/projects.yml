@@ -52,6 +52,7 @@ projects:
           layout: ["F", "B"]
       - className: DatFX
         pattern:
-          speed: [1, 2, 3, 4, 5, 6]
+          texture: [1, 2, 3, 4, 5, 6]
+          speed: [3000]
           system_type: ["G"]
           layout: ["C"]
