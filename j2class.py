@@ -102,7 +102,7 @@ class RTGSidewalk(RTG):
         return f"sidewalk_{ self.get_name() }"
 
     def get_dest_path(self):
-        return f"sidewalk_{ self.get_name() }"
+        return f"sidewalk_{ self.get_name() }_{ self.d["layout"] }"
 
     def get_icons(self):
         return [
@@ -136,6 +136,10 @@ class RTGSidewalk(RTG):
             },
         ]
 
+    def get_source_location(self, loc:str):
+        if self.d["layout"] == "A":
+            return "0.0"
+        return loc
 
 class Merge:
     def __init__(self, data) -> None:
@@ -171,7 +175,7 @@ class MergeTexture(Merge):
 
 class MergeSidewalk(Merge):
     def get_name(self):
-        return self.d["source"]
+        return f"{ self.d["source"] }_{ self.d["layout"] }"
 
     def get_source_path(self):
         return f"sidewalk_{ self.get_name() }"
@@ -186,6 +190,9 @@ class Dat:
 
     def __init__(self, data) -> None:
         self.d = data
+
+    def get_obj(self):
+        return "way"
 
     def get_full_name(self):
         return f"{
@@ -358,6 +365,8 @@ class DatTi(Dat):
             ["imageup2", "6", self.get_image_path(), 1, 8, -64, -80],
             ["diagonal", "sw", self.get_image_path(), 2, 0, -64, -96],
             ["diagonal", "nw", self.get_image_path(), 2, 1, -64, -96],
+            ["diagonal", "ne", self.get_image_path(), 2, 2, -64, -96],
+            ["diagonal", "se", self.get_image_path(), 2, 3, -64, -96],
             ["image", "sw", self.get_image_path(), 2, self.get_curve_x(0), -64, -96],
             ["image", "nw", self.get_image_path(), 2, self.get_curve_x(1), -64, -96],
             ["image", "ne", self.get_image_path(), 2, self.get_curve_x(2), -64, -96],
@@ -409,37 +418,59 @@ class DatTiSingle(DatTi):
 class DatFX(DatTi):
     name = "FX"
 
+    def is_way_obj(self):
+        return self.d["layout"] != "A"
+
+    def get_waytype(self):
+        if self.is_way_obj():
+            return "road"
+        return "water"
+
+    def get_obj(self):
+        if self.is_way_obj():
+            return "way-object"
+        return "way"
+
+    def get_full_name(self):
+        return f"{ self.name } { self.d["texture"] } { self.d["layout"] }"
+
     def get_image_path(self):
-        return f"sidewalk_{ self.d["texture"] }"
+        return f"sidewalk_{ self.d["texture"] }_{ self.d["layout"] }"
+
+    def get_image_name(self, name):
+        if self.is_way_obj():
+            return f"back{name}"
+        return name
+
 
     def get_images(self):
         return [
-            ["image", "ns", self.get_image_path(), 0, 2, -64, -96],
-            ["image", "ew", self.get_image_path(), 0, 3, -64, -96],
-            ["image", "s", self.get_image_path(), 0, 5, -64, -96],
-            ["image", "w", self.get_image_path(), 0, 6, -64, -96],
-            ["image", "n", self.get_image_path(), 0, 7, -64, -96],
-            ["image", "e", self.get_image_path(), 0, 8, -64, -96],
-            ["image", "-", self.get_image_path(), 0, 9, -64, -96],
-            ["imageup", "12", self.get_image_path(), 1, 0, -64, -88],
-            ["imageup", "9", self.get_image_path(), 1, 1, -64, -88],
-            ["imageup", "3", self.get_image_path(), 1, 2, -64, -88],
-            ["imageup", "6", self.get_image_path(), 1, 3, -64, -88],
-            ["imageup2", "12", self.get_image_path(), 1, 5, -64, -80],
-            ["imageup2", "9", self.get_image_path(), 1, 6, -64, -80],
-            ["imageup2", "3", self.get_image_path(), 1, 7, -64, -80],
-            ["imageup2", "6", self.get_image_path(), 1, 8, -64, -80],
-            ["diagonal", "sw", self.get_image_path(), 2, 0, -64, -96],
-            ["diagonal", "nw", self.get_image_path(), 2, 1, -64, -96],
-            ["diagonal", "ne", self.get_image_path(), 2, 2, -64, -96],
-            ["diagonal", "se", self.get_image_path(), 2, 3, -64, -96],
-            ["image", "sw", self.get_image_path(), 2, 0, -64, -96],
-            ["image", "nw", self.get_image_path(), 2, 1, -64, -96],
-            ["image", "ne", self.get_image_path(), 2, 2, -64, -96],
-            ["image", "se", self.get_image_path(), 2, 3, -64, -96],
-            ["image", "new", self.get_image_path(), 4, 0, -64, -96],
-            ["image", "nse", self.get_image_path(), 4, 1, -64, -96],
-            ["image", "sew", self.get_image_path(), 4, 2, -64, -96],
-            ["image", "nsw", self.get_image_path(), 4, 3, -64, -96],
-            ["image", "nsew", self.get_image_path(), 4, 4, -64, -96],
+            [self.get_image_name("image"), "ns", self.get_image_path(), 0, 2, -64, -96],
+            [self.get_image_name("image"), "ew", self.get_image_path(), 0, 3, -64, -96],
+            [self.get_image_name("image"), "s", self.get_image_path(), 0, 5, -64, -96],
+            [self.get_image_name("image"), "w", self.get_image_path(), 0, 6, -64, -96],
+            [self.get_image_name("image"), "n", self.get_image_path(), 0, 7, -64, -96],
+            [self.get_image_name("image"), "e", self.get_image_path(), 0, 8, -64, -96],
+            [self.get_image_name("image"), "-", self.get_image_path(), 0, 9, -64, -96],
+            [self.get_image_name("imageup"), "12", self.get_image_path(), 1, 0, -64, -88],
+            [self.get_image_name("imageup"), "9", self.get_image_path(), 1, 1, -64, -88],
+            [self.get_image_name("imageup"), "3", self.get_image_path(), 1, 2, -64, -88],
+            [self.get_image_name("imageup"), "6", self.get_image_path(), 1, 3, -64, -88],
+            [self.get_image_name("imageup2"), "12", self.get_image_path(), 1, 5, -64, -80],
+            [self.get_image_name("imageup2"), "9", self.get_image_path(), 1, 6, -64, -80],
+            [self.get_image_name("imageup2"), "3", self.get_image_path(), 1, 7, -64, -80],
+            [self.get_image_name("imageup2"), "6", self.get_image_path(), 1, 8, -64, -80],
+            [self.get_image_name("diagonal"), "sw", self.get_image_path(), 2, 0, -64, -96],
+            [self.get_image_name("diagonal"), "nw", self.get_image_path(), 2, 1, -64, -96],
+            [self.get_image_name("diagonal"), "ne", self.get_image_path(), 2, 2, -64, -96],
+            [self.get_image_name("diagonal"), "se", self.get_image_path(), 2, 3, -64, -96],
+            [self.get_image_name("image"), "sw", self.get_image_path(), self.get_sw_nw_y(), 5, -64, -96],
+            [self.get_image_name("image"), "nw", self.get_image_path(), self.get_sw_nw_y(), 6, -64, -96],
+            [self.get_image_name("image"), "ne", self.get_image_path(), self.get_ne_se_y(), 7, -64, -96],
+            [self.get_image_name("image"), "se", self.get_image_path(), self.get_ne_se_y(), 8, -64, -96],
+            [self.get_image_name("image"), "new", self.get_image_path(), 4, 0, -64, -96],
+            [self.get_image_name("image"), "nse", self.get_image_path(), 4, 1, -64, -96],
+            [self.get_image_name("image"), "sew", self.get_image_path(), 4, 2, -64, -96],
+            [self.get_image_name("image"), "nsw", self.get_image_path(), 4, 3, -64, -96],
+            [self.get_image_name("image"), "nsew", self.get_image_path(), 4, 4, -64, -96],
         ]

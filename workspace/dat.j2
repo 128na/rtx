@@ -1,9 +1,12 @@
 {%- for dat in items %}
-obj=way
+obj={{ dat.get_obj() }}
 name={{ dat.get_full_name() }}
 copyright=128na
 system_type={{ dat.get_system_type() }}
 waytype={{ dat.get_waytype() }}
+{%- if dat.is_way_obj() %}
+own_waytype=electrified_track
+{%- endif %}
 topspeed={{ dat.get_topspeed() }}
 cost={{ dat.get_cost() }}
 maintenance={{ dat.get_maintenance() }}

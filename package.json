@@ -16,7 +16,7 @@
     "makeobj": "makeobj pak256 ./dist/rtx.pak ./dist/all.dat",
     "simutrans": "start /B ./simutrans/simutrans.exe",
     "wipe": "del .build\\* /Q && del dist\\* /Q",
-    "dev": "npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && pause && npm run dev",
+    "dev": "npm run wipe && npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && pause && npm run dev",
     "build": "mkdir -p .build && npm run j2 && npm run rtg && npm run merge && npm run makeobj"
   },
   "author": "128Na",
