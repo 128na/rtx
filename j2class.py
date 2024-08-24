@@ -191,6 +191,9 @@ class Dat:
     def __init__(self, data) -> None:
         self.d = data
 
+    def is_way_obj(self):
+        return False
+
     def get_obj(self):
         return "way"
 

@@ -37,6 +37,9 @@ npm run dev
 
 ## info
 
+![アドオン生成フロー](./doc/flow.svg)
+
+
 ### dat生成
 jinjaテンプレート(.j2)を使用しています。
 
