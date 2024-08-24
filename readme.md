@@ -37,7 +37,7 @@ npm run dev
 
 ## info
 
-![アドオン生成フロー](./doc/flow.svg)
+![アドオン生成フロー](./doc/flow.png)
 
 
 ### dat生成
