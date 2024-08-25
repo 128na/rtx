@@ -1,4 +1,4 @@
-![サムネイル](./thumb.png)
+![サムネイル](./doc/thumb.png)
 
 # road and texture extension pack
 
