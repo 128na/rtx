@@ -48,10 +48,12 @@ projects:
       - className: DatTi
         pattern:
           texture: [1, 2, 3, 4, 5, 6, 7, 8]
+          way_type: ["T", "O"]
           speed: [3000, 6000]
       - className: DatTiSingle
         pattern:
           texture: [11, 12, 13, 14, 15, 16, 17, 18]
+          way_type: ["T", "O"]
           speed: [3000, 6000]
           layout: ["F", "B"]
       - className: DatFX
