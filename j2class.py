@@ -169,6 +169,7 @@ class MergeSidewalk(Merge):
     def is_texture(self):
         return True
 
+
 class Dat:
     name: str
     d: dict
@@ -313,7 +314,7 @@ class DatTi(Dat):
         if self.is_way_obj():
             return "way-object"
         return "way"
-        
+
     def get_full_name(self):
         return f"{self.name} {self.get_name()}{self.d["way_type"]}"
 
