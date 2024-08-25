@@ -306,7 +306,7 @@ class DatTi(Dat):
         return self.d["way_type"] != "T"
 
     def get_waytype(self):
-        if self.is_way_obj():
+        if self.d["way_type"] == "RO":
             return "road"
         return "tram_track"
 
