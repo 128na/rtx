@@ -39,8 +39,8 @@ jobs:
         cd dist
         mkdir src
         find ./ -type f ! -name 'rtx.pak' -exec mv {} src/ \;
-        cp ../readme.txt ./
-        cp ../thumb.png ./
+        cp ../doc/readme.txt ./
+        cp ../doc/thumb.png ./
 
 
     - name: Upload artifact
