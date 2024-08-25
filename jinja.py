@@ -1,9 +1,4 @@
-"""
-workspace内のj2ファイルをレンダリングする。標準出力に出るのでいい感じにファイル出力してください。
-"""
-
 import itertools
-import argparse
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -23,9 +18,6 @@ def resolve_class(defs: list):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="jinjaテンプレートをレンダリングする")
-    args = parser.parse_args()
-
     env = Environment(loader=FileSystemLoader("./"), autoescape=select_autoescape())
 
     with open("./workspace/projects.yml", "r", encoding="utf-8") as file:

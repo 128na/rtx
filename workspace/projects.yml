@@ -17,7 +17,7 @@ projects:
       - className: RTGSidewalk
         pattern:
           source: [1, 2, 3, 4, 5, 6]
-          layout: ["A", "C"]
+          layout: ["A", "F", "B", "S"]
   - source: workspace/merge.j2
     dest: .build/merge.json
     items:
@@ -31,7 +31,7 @@ projects:
       - className: MergeSidewalk
         pattern:
           source: [1, 2, 3, 4, 5, 6]
-          layout: ["A", "C"]
+          layout: ["A", "F", "B", "S"]
   - source: workspace/dat.j2
     dest: dist/all.dat
     items:
@@ -61,4 +61,4 @@ projects:
           texture: [1, 2, 3, 4, 5, 6]
           speed: [3000]
           system_type: ["G"]
-          layout: ["A", "C"]
+          layout: ["A", "F", "B", "S"]
