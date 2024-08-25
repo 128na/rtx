@@ -1,6 +1,9 @@
 name: Pylint
 
-on: [push]
+on:
+  push:
+    branches:
+      - "*"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
