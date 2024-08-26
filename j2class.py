@@ -1,6 +1,3 @@
-import abc
-
-
 class RTG:
     d: dict
 
@@ -335,6 +332,7 @@ class MergeSidewalkFill(Merge):
 
     def get_dest_path(self):
         return f"{self.get_name()}A"
+
 
 class MergeSidewalk(MergeSidewalkFill):
     def get_name(self):
