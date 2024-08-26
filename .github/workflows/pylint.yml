@@ -30,6 +30,12 @@ jobs:
     - name: Run Pylint
       run: pylint **/*.py
 
+    - name: Set up Git credentials
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+    
     - name: Determine the branch name
       run: |
         if [ "${{ github.event_name }}" = "pull_request" ]; then
