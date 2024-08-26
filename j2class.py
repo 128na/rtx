@@ -683,6 +683,3 @@ class DatFX(DatTi):
             f"{p}image[nsw]={path}.4.3,-64,-96",
             f"{p}image[nsew]={path}.4.4,-64,-96",
         ]
-
-
-
