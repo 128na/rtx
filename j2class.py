@@ -512,7 +512,7 @@ class DatTi(Dat):
         return f"{self.series} {self.get_name()}{self.d["way_type"]}"
 
     def get_waytype(self):
-        if self.d["way_type"] == "RO":
+        if self.d["way_type"] == "Ro":
             return "road"
         return "tram_track"
 
@@ -637,7 +637,7 @@ class DatFX(DatTi):
         return f"{self.series} {self.d["texture"]} {self.d["layout"]}"
 
     def get_image_path(self):
-        return f"side_{self.d["texture"]}_{self.d["layout"]}"
+        return f"side_{self.d["texture"]}{self.d["layout"]}"
 
     def get_images(self):
         p = self.get_image_prefix()
