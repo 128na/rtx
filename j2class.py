@@ -311,7 +311,7 @@ class MergeSurface(Merge):
     def get_icon_source_pathes(self):
         return [
             "workspace/base_icon_single",
-            f".build/{self.get_name()}",
+            f".build/{self.get_name()}_icon",
             "workspace/base_icon_single_wrap",
         ]
 
@@ -329,7 +329,7 @@ class MergeSidewalkFill(Merge):
     def get_icon_source_pathes(self):
         return [
             "workspace/base_icon_single",
-            f".build/{self.get_name()}",
+            f".build/{self.get_name()}_icon",
             "workspace/base_icon_single_wrap",
         ]
 
