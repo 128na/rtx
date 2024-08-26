@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "pip install -r rtg/requirements.txt && pip install -r requirements.txt",
     "pylint": "pylint *.py",
-    "pylint:fix": "black *.py",
+    "pylint:fix": "black *.py && pylint *.py",
     "rtg:update": "git submodule update --remote",
     "j2": "python jinja.py",
     "rtg": "python rtg/main.py --debug \"./.build/*.yml\"",

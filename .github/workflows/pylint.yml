@@ -14,19 +14,28 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.12"
+
     - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run Black
+      run: black .
+
+    - name: Run Pylint
+      run: pylint **/*.py
+
+    - name: Check for formatting changes
       run: |
-        pip install -r requirements.txt
-        pip install pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+        git diff --exit-code || (
+          git config --global user.name "github-actions" &&
+          git config --global user.email "github-actions@github.com" &&
+          git add . &&
+          git commit -m "Apply formatting changes" &&
+          git push
+        )

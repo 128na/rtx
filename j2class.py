@@ -634,6 +634,19 @@ class DatFX(DatTi):
     def get_full_name(self):
         return f"{self.series} {self.d["texture"]} {self.d["layout"]}"
 
+    def get_icon_index(self):
+        match self.d["layout"]:
+            case "F":
+                return 0
+            case "C":
+                return 1
+            case "B":
+                return 2
+            case "S":
+                return 3
+            case _:
+                return 0
+
     def get_image_path(self):
         return f"side_{self.d["texture"]}{self.d["layout"]}"
 
@@ -670,3 +683,6 @@ class DatFX(DatTi):
             f"{p}image[nsw]={path}.4.3,-64,-96",
             f"{p}image[nsew]={path}.4.4,-64,-96",
         ]
+
+
+
