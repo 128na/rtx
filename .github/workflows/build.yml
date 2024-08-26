@@ -29,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         npm run setup
-        sudo apt install -y simutrans-makeobj
+        sudo apt-get install -y simutrans-makeobj
         wget https://github.com/128na/simutrans-image-merger/releases/download/v1.6.1/release-ubuntu-latest.zip
         unzip release-ubuntu-latest.zip
         rm release-ubuntu-latest.zip
