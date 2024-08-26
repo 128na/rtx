@@ -2,36 +2,52 @@
 # pattern内の配列の交差結合だけパターンが生成される
 projects:
   - source: workspace/rtg.j2
-    dest: .build/rtg.yml
+    dest: .build/road.yml
+    meta:
+      title: 道路
+      description: 道路全般
+      interpolation_flags: 3
+      resolution: 2
     items:
       - className: RTGRoad
         pattern:
-          speed: [4080, 3080, 2080, 580, 680, 780]
-      - className: RTGTexture
+          source: [4080, 3080, 2080, 780, 680, 580]
+      - className: RTGSurface
         pattern:
           source: [1, 5, 11, 15, 21, 25]
           color: [0, 1, 2, 3]
-  - source: workspace/sidewalk.j2
+  - source: workspace/rtg.j2
     dest: .build/sidewalk.yml
+    meta:
+      title: 路面舗装
+      description: 路面舗装全般
+      interpolation_flags: 3
+      resolution: 4
     items:
+      - className: RTGSidewalkFill
+        pattern:
+          source: [1, 2, 3, 4, 5, 6]
       - className: RTGSidewalk
         pattern:
           source: [1, 2, 3, 4, 5, 6]
-          layout: ["A", "F", "B", "S"]
+          layout: ["F", "B", "S"]
   - source: workspace/merge.j2
     dest: .build/merge.json
     items:
       - className: MergeRoad
         pattern:
           source: [4080, 3080, 2080, 580, 680, 780]
-      - className: MergeTexture
+      - className: MergeSurface
         pattern:
           source: [1, 5, 11, 15, 21, 25]
           color: [0, 1, 2, 3]
+      - className: MergeSidewalkFill
+        pattern:
+          source: [1, 2, 3, 4, 5, 6]
       - className: MergeSidewalk
         pattern:
           source: [1, 2, 3, 4, 5, 6]
-          layout: ["A", "F", "B", "S"]
+          layout: ["F", "B", "S"]
   - source: workspace/dat.j2
     dest: dist/all.dat
     items:

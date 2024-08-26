@@ -28,6 +28,6 @@ if __name__ == "__main__":
         resolvedItems = {
             "items": resolve_class(prj["items"]),
         }
-        rendered = template.render(resolvedItems)
+        rendered = template.render(prj.get("meta", {}) | resolvedItems)
         with open(prj["dest"], "w", encoding="utf-8") as file:
             file.write(rendered)
