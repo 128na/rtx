@@ -14,6 +14,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -30,28 +32,9 @@ jobs:
     - name: Run Pylint
       run: pylint **/*.py
 
-    - name: Set up Git credentials
-      run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "github-actions@github.com"
-        git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-    
-    - name: Determine the branch name
-      run: |
-        if [ "${{ github.event_name }}" = "pull_request" ]; then
-          BRANCH_NAME="${{ github.head_ref }}"
-        else
-          BRANCH_NAME=$(basename ${{ github.ref }})
-        fi
-        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-    
-    - name: Check for formatting changes
-      run: |
-        git diff --exit-code || (
-          git config --global user.name "github-actions" &&
-          git config --global user.email "github-actions@github.com" &&
-          git add . &&
-          git commit -m "Apply formatting changes" &&
-          git push origin HEAD:$BRANCH_NAME
-        )
-    
+    - # commit only to core contributors who have repository access
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+          commit_message: "[rector] Rector fixes"
+          commit_author: "GitHub Action <actions@github.com>"
+          commit_user_email: "action@github.com"
