@@ -3,20 +3,25 @@
   "definitions": [
 {%- for item in items %}
     {
-      "outputPath": "dist/{{ item.get_dest_path() }}.png",
+      "outputPath": "dist/{{ item.get_icon_dest_path() }}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
-          "comment": "road",
+          "comment": "icon,cursor",
           "pathes": [
-            ".build/{{ item.get_source_path() }}.png",
-            "workspace/bg_road.png"
+{%- for path in item.get_icon_source_pathes() %}
+            "{{ path }}.png"{%- if not loop.last %},{%- endif %}
+{%- endfor %}
           ],
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": {{ item.get_icon_offset_x() }},
+            "y": {{ item.get_icon_offset_y() }}
           }
+        },
+        {
+          "name": "removeTransparent",
+          "threthold": 128
         },
         {
           "name": "removeSpecialColor"
@@ -24,30 +29,21 @@
       ]
     },
     {
-      "outputPath": "dist/{{ item.get_dest_path() }}_icon.png",
+      "outputPath": "dist/{{ item.get_dest_path() }}.png",
       "rules": [
         {
           "name": "mergeImage",
           "mode": "normal",
-          "comment": "icon,cursor",
+          "comment": "",
           "pathes": [
-{%- if item.is_texture() %}
-            "workspace/bg_texture_icon2.png",
-            ".build/{{ item.get_source_path() }}_icon.png",
-            "workspace/bg_texture_icon.png"
-{%- else %}
-            ".build/{{ item.get_source_path() }}_icon.png",
-            "workspace/bg_road_icon.png"
-{%- endif %}
+{%- for path in item.get_source_pathes() %}
+            "{{ path }}.png"{%- if not loop.last %},{%- endif %}
+{%- endfor %}
           ],
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": {{ item.get_offset_x() }},
+            "y": {{ item.get_offset_y() }}
           }
-        },
-        {
-          "name": "removeTransparent",
-          "threthold": 128
         },
         {
           "name": "removeSpecialColor"

@@ -1,62 +1,62 @@
-title: RTX
-description: RTX series
+title: "{{ title }}"
+description: "{{ description }}"
 rtg_version: 1
 options:
-  interpolation_flags: 3
-  resolution: 2
+  interpolation_flags: {{ interpolation_flags }}
+  resolution: {{ resolution }}
 files:
-{%- for file in items %}
-  - name: "{{ file.get_name() }}_icon"
+{%- for item in items %}
+  - name: "{{ item.get_name() }}_icon"
     source:
-      path: "../workspace/{{ file.get_source_path() }}.png"
+      path: "../workspace/{{ item.get_icon_source_path() }}.png"
       default_size: 512
     dest:
-      path: "{{ file.get_dest_path() }}_icon.png"
-      width: {{ (file.get_icons() | length) * 256 }}
+      path: "{{ item.get_icon_dest_path() }}.png"
+      width: {{ (item.get_icon_rules() | length) * 256 }}
       height: 512
       default_size: 256
-{%- if file.get_shift() != 0 %}
+{%- if item.get_shift() != 0 %}
     after_apply:
-      - [shift, {{ file.get_shift() }}]
+      - [shift, {{ item.get_shift() }}]
 {%- endif %}
     rules:
-{%- for icon in file.get_icons() %}
-      - name: icon{{ icon.suffix }}
+{%- for rule in item.get_icon_rules() %}
+      - name: icon{{ rule[0] }}
         source:
-          location: "{{ icon.source }}"
+          location: "{{ rule[1] }}"
         dest:
-          location: "{{ icon.dest }}"
+          location: "{{ rule[2] }}"
           size: 128
         converts:
-{%- for convert in icon.converts %}
+{%- for convert in rule[3] %}
           - {{ convert }}
 {%- endfor %}
-      - name: cursor{{ icon.suffix }}
+      - name: cursor{{ rule[0] }}
         source:
-          location: "{{ icon.source }}"
+          location: "{{ rule[4] }}"
         dest:
-          location: "{{ icon.dest_cur }}"
+          location: "{{ rule[5] }}"
           size: 128
         converts:
-{%- for convert in icon.converts %}
+{%- for convert in rule[6] %}
           - {{ convert }}
 {%- endfor %}
 {%- endfor %}
-  - name: "{{ file.get_name() }}"
+  - name: "{{ item.get_name() }}"
     source:
-      path: "../workspace/{{ file.get_source_path() }}.png"
+      path: "../workspace/{{ item.get_source_path() }}.png"
       default_size: 512
     dest:
-      path: "{{ file.get_dest_path() }}.png"
-      width: 2560
-      height: 1536
+      path: "{{ item.get_dest_path() }}.png"
+      width: {{ item.get_width() }}
+      height: {{ item.get_height() }}
       default_size: 256
-{%- if file.get_shift() != 0 %}
+{%- if item.get_shift() != 0 %}
     after_apply:
-      - [shift, {{ file.get_shift() }}]
+      - [shift, {{ item.get_shift() }}]
 {%- endif %}
     rules:
-{%- for rule in file.get_rules() %}
+{%- for rule in item.get_rules() %}
       - name: "{{ rule[0] }}"
         source:
           location: "{{ rule[1] }}"
