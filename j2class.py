@@ -655,7 +655,7 @@ class DatFX(DatTi):
         return "water"
 
     def get_full_name(self):
-        return f"{self.series} {self.d["source"]} {self.d["layout"]}"
+        return f"{self.series} {self.d["source"]}{self.d["layout"]}"
 
     def get_icon_index(self):
         match self.d["layout"]:
