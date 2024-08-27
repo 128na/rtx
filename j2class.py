@@ -8,7 +8,7 @@ class RTG:
         return self.d["source"]
 
     def get_icon_source_path(self):
-        return self.get_name()
+        return f"road/{self.d["source"]}"
 
     def get_icon_dest_path(self):
         return f"{self.get_name()}_icon"
@@ -42,7 +42,7 @@ class RTG:
         ]
 
     def get_source_path(self):
-        return self.get_name()
+        return f"road/{self.d["source"]}"
 
     def get_dest_path(self):
         return self.get_name()
@@ -101,10 +101,10 @@ class RTGRoad(RTG):
 
 class RTGSurface(RTG):
     def get_name(self):
-        return f"surface_{self.d["source"] + self.d["color"]}"
+        return f"surface_{self.d["source"]}{self.d["layout"]}{self.d["color"]}"
 
     def get_icon_source_path(self):
-        return f"surface_{self.d["source"]}"
+        return f"surface/{self.d["source"]}{self.d["layout"]}"
 
     def get_icon_dest_path(self):
         return f"{self.get_name()}_icon"
@@ -133,8 +133,6 @@ class RTGSurface(RTG):
 
     def get_shift(self):
         match self.d["color"]:
-            case 0:
-                return 0  # 赤
             case 1:
                 return 209  # 青
             case 2:
@@ -145,7 +143,7 @@ class RTGSurface(RTG):
                 return 0
 
     def get_source_path(self):
-        return f"surface_{self.d["source"]}"
+        return f"surface/{self.d["source"]}{self.d["layout"]}"
 
     def get_dest_path(self):
         return self.get_name()
@@ -156,7 +154,7 @@ class RTGSidewalkFill(RTG):
         return f"side_{self.d["source"]}"
 
     def get_icon_source_path(self):
-        return self.get_name()
+        return f"side/{self.d["source"]}"
 
     def get_icon_dest_path(self):
         return f"{self.get_name()}A_icon"
@@ -177,7 +175,7 @@ class RTGSidewalkFill(RTG):
         ]
 
     def get_source_path(self):
-        return self.get_name()
+        return f"side/{self.d["source"]}"
 
     def get_dest_path(self):
         return f"{self.get_name()}A"
@@ -220,7 +218,7 @@ class RTGSidewalk(RTGSidewalkFill):
         return f"side_{self.d["source"]}{self.d["layout"]}"
 
     def get_icon_source_path(self):
-        return f"side_{self.d["source"]}"
+        return f"side/{self.d["source"]}"
 
     def get_icon_dest_path(self):
         return f"{self.get_name()}_icon"
@@ -241,7 +239,7 @@ class RTGSidewalk(RTGSidewalkFill):
         ]
 
     def get_source_path(self):
-        return f"side_{self.d["source"]}"
+        return f"side/{self.d["source"]}"
 
     def get_dest_path(self):
         return self.get_name()
@@ -517,15 +515,8 @@ class DatTi(Dat):
             return "way-object"
         return "way"
 
-    def get_name(self):
-        match self.d["speed"]:
-            case 6000:
-                return self.d["texture"] + 50
-            case _:
-                return self.d["texture"]
-
     def get_full_name(self):
-        return f"{self.series} {self.get_name()}{self.d["way_type"]}"
+        return f"{self.series} {self.d["speed"]} {self.d["source"]}D{self.d["color"]}{self.d["way_type"]}"
 
     def get_waytype(self):
         if self.d["way_type"] == "Ro":
@@ -548,7 +539,7 @@ class DatTi(Dat):
         return 100
 
     def get_image_path(self):
-        return f"surface_{self.d["texture"]}"
+        return f"surface_{self.d["source"]}D{self.d["color"]}"
 
     def get_icon_index(self):
         return 0
@@ -601,20 +592,20 @@ class DatTi(Dat):
 
 class DatTiSingle(DatTi):
     def get_full_name(self):
-        return f"{self.series} {self.get_name()} {self.d["layout"]}{self.d["way_type"]}"
+        return f"{self.series} {self.d["speed"]} {self.d["source"]}{self.d["layout"]}{self.d["color"]}{self.d["way_type"]}"
 
     def get_image_path(self):
         """
         方角によっては左右が反転する
         """
         if self.d["layout"] == "B":
-            return f"surface_{self.d["texture"] + 10}"
-        return f"surface_{self.d["texture"]}"
+            return f"surface_{self.d["source"]}F{self.d["color"]}"
+        return f"surface_{self.d["source"]}B{self.d["color"]}"
 
     def flip(self):
         if self.d["layout"] == "F":
-            return f"surface_{self.d["texture"] + 10}"
-        return f"surface_{self.d["texture"]}"
+            return f"surface_{self.d["source"]}B{self.d["color"]}"
+        return f"surface_{self.d["source"]}F{self.d["color"]}"
 
     def get_images(self):
         p = self.get_image_prefix()
@@ -664,7 +655,7 @@ class DatFX(DatTi):
         return "water"
 
     def get_full_name(self):
-        return f"{self.series} {self.d["texture"]} {self.d["layout"]}"
+        return f"{self.series} {self.d["source"]} {self.d["layout"]}"
 
     def get_icon_index(self):
         match self.d["layout"]:
@@ -680,7 +671,7 @@ class DatFX(DatTi):
                 return 0
 
     def get_image_path(self):
-        return f"side_{self.d["texture"]}{self.d["layout"]}"
+        return f"side_{self.d["source"]}{self.d["layout"]}"
 
     def get_images(self):
         p = self.get_image_prefix()
