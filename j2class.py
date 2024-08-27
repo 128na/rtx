@@ -26,7 +26,7 @@ class RTG:
 
     def get_icon_after_apply(self):
         return [
-            "merge,../workspace/base_icon_4.png",
+            "merge,../workspace/static/base_icon_4.png",
             "removeTransparent",
             "removeSpecial",
         ]
@@ -36,7 +36,7 @@ class RTG:
 
     def get_after_apply(self):
         return [
-            "merge,../workspace/base_road.png",
+            "merge,../workspace/static/base_road.png",
             "removeTransparent",
             "removeSpecial",
         ]
@@ -114,20 +114,20 @@ class RTGSurface(RTG):
 
     def get_icon_before_apply(self):
         return [
-            "merge,../workspace/base_icon_single.png",
+            "merge,../workspace/static/base_icon_single.png",
         ]
 
     def get_icon_after_apply(self):
         return [
             f"shift,{self.get_shift()}",
-            "merge,../workspace/base_icon_single_wrap.png",
+            "merge,../workspace/static/base_icon_single_wrap.png",
             "removeSpecial",
         ]
 
     def get_after_apply(self):
         return [
             f"shift,{self.get_shift()}",
-            "merge,../workspace/base_road.png",
+            "merge,../workspace/static/base_road.png",
             "removeSpecial",
         ]
 
@@ -166,12 +166,12 @@ class RTGSidewalkFill(RTG):
 
     def get_icon_before_apply(self):
         return [
-            "merge,../workspace/base_icon_single.png",
+            "merge,../workspace/static/base_icon_single.png",
         ]
 
     def get_icon_after_apply(self):
         return [
-            "merge,../workspace/base_icon_single_wrap.png",
+            "merge,../workspace/static/base_icon_single_wrap.png",
             "removeTransparent",
             "removeSpecial",
         ]
@@ -235,7 +235,7 @@ class RTGSidewalk(RTGSidewalkFill):
 
     def get_icon_after_apply(self):
         return [
-            "merge,../workspace/base_icon_4.png",
+            "merge,../workspace/static/base_icon_4.png",
             "removeTransparent",
             "removeSpecial",
         ]
