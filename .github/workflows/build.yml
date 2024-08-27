@@ -28,7 +28,9 @@ jobs:
       with:
         python-version: "3.12"
     - name: Install dependencies
-      run: npm run setup
+      run: |
+        npm run setup
+        sudo apt-get install -y simutrans-makeobj
     - name: make dist directory
       run: mkdir dist
     - name: Build pak
