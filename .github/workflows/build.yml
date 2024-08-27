@@ -1,17 +1,16 @@
 name: Build
 
 on:
-  pull_request:
+  push:
     branches: 
       - "main"
-
-  push:
-    branches-ignore:
-      - "main"
-    tags:
+    tags: 
       - "v*"
       - "beta*"
       - "dev*"
+  pull_request:
+    branches: 
+      - "main"
 
 permissions:
   contents: write
