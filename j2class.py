@@ -23,14 +23,17 @@ class RTG:
 
     def get_icon_before_apply(self):
         return []
+
     def get_icon_after_apply(self):
         return [
             "merge,../workspace/base_icon_4.png",
             "removeTransparent",
             "removeSpecial",
         ]
+
     def get_before_apply(self):
         return []
+
     def get_after_apply(self):
         return [
             "merge,../workspace/base_road.png",
@@ -113,12 +116,14 @@ class RTGSurface(RTG):
         return [
             "merge,../workspace/base_icon_single.png",
         ]
+
     def get_icon_after_apply(self):
         return [
             f"shift,{self.get_shift()}",
             "merge,../workspace/base_icon_single_wrap.png",
             "removeSpecial",
         ]
+
     def get_after_apply(self):
         return [
             f"shift,{self.get_shift()}",
@@ -163,6 +168,7 @@ class RTGSidewalkFill(RTG):
         return [
             "merge,../workspace/base_icon_single.png",
         ]
+
     def get_icon_after_apply(self):
         return [
             "merge,../workspace/base_icon_single_wrap.png",
@@ -358,6 +364,7 @@ class RTGSidewalk(RTGSidewalkFill):
                     ["nsew_f", "1.1", "4.4", ["to_n"]],
                     ["nsew_b", "1.0", "4.4", ["to_n"]],
                 ]
+
 
 class Dat:
     series: str
