@@ -4,9 +4,10 @@ on:
   pull_request:
     branches: 
       - "main"
+
   push:
-    branches:
-      - "*"
+    branches-ignore:
+      - "main"
     tags:
       - "v*"
       - "beta*"
@@ -30,10 +31,8 @@ jobs:
       run: |
         npm run setup
         sudo apt-get install -y simutrans-makeobj
-        wget https://github.com/128na/simutrans-image-merger/releases/download/v1.6.1/release-ubuntu-latest.zip
-        unzip release-ubuntu-latest.zip
-        rm release-ubuntu-latest.zip
-        mv dist/simutrans-image-merger ./
+    - name: make dist directory
+      run: mkdir dist
     - name: Build pak
       run: npm run build 
 

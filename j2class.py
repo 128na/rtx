@@ -21,8 +21,25 @@ class RTG:
             ["_s", "2.1", "0.6", ["to_n"], "2.1", "2.6", ["to_n"]],
         ]
 
-    def get_shift(self):
-        return 0
+    def get_icon_before_apply(self):
+        return []
+
+    def get_icon_after_apply(self):
+        return [
+            "merge,../workspace/base_icon_4.png",
+            "removeTransparent",
+            "removeSpecial",
+        ]
+
+    def get_before_apply(self):
+        return []
+
+    def get_after_apply(self):
+        return [
+            "merge,../workspace/base_road.png",
+            "removeTransparent",
+            "removeSpecial",
+        ]
 
     def get_source_path(self):
         return self.get_name()
@@ -95,6 +112,25 @@ class RTGSurface(RTG):
     def get_icon_rules(self):
         return [["", "2.1", "0.0", ["to_n"], "2.1", "2.0", ["to_n"]]]
 
+    def get_icon_before_apply(self):
+        return [
+            "merge,../workspace/base_icon_single.png",
+        ]
+
+    def get_icon_after_apply(self):
+        return [
+            f"shift,{self.get_shift()}",
+            "merge,../workspace/base_icon_single_wrap.png",
+            "removeSpecial",
+        ]
+
+    def get_after_apply(self):
+        return [
+            f"shift,{self.get_shift()}",
+            "merge,../workspace/base_road.png",
+            "removeSpecial",
+        ]
+
     def get_shift(self):
         match self.d["color"]:
             case 0:
@@ -123,16 +159,28 @@ class RTGSidewalkFill(RTG):
         return self.get_name()
 
     def get_icon_dest_path(self):
-        return f"{self.get_name()}_icon"
+        return f"{self.get_name()}A_icon"
 
     def get_icon_rules(self):
         return [["", "1.4", "0.0", ["to_n"], "1.4", "2.0", ["to_n"]]]
+
+    def get_icon_before_apply(self):
+        return [
+            "merge,../workspace/base_icon_single.png",
+        ]
+
+    def get_icon_after_apply(self):
+        return [
+            "merge,../workspace/base_icon_single_wrap.png",
+            "removeTransparent",
+            "removeSpecial",
+        ]
 
     def get_source_path(self):
         return self.get_name()
 
     def get_dest_path(self):
-        return self.get_name()
+        return f"{self.get_name()}A"
 
     def get_rules(self):
         return [
@@ -183,6 +231,13 @@ class RTGSidewalk(RTGSidewalkFill):
             ["_c", "1.4", "0.2", ["to_n"], "1.4", "2.2", ["to_n"]],
             ["_b", "1.4", "0.4", ["to_n"], "1.4", "2.4", ["to_n"]],
             ["_s", "1.4", "0.6", ["to_n"], "1.4", "2.6", ["to_n"]],
+        ]
+
+    def get_icon_after_apply(self):
+        return [
+            "merge,../workspace/base_icon_4.png",
+            "removeTransparent",
+            "removeSpecial",
         ]
 
     def get_source_path(self):
@@ -309,93 +364,6 @@ class RTGSidewalk(RTGSidewalkFill):
                     ["nsew_f", "1.1", "4.4", ["to_n"]],
                     ["nsew_b", "1.0", "4.4", ["to_n"]],
                 ]
-
-
-class Merge:
-    def __init__(self, data) -> None:
-        self.d = data
-
-    def get_name(self):
-        return self.d["source"]
-
-    def get_icon_dest_path(self):
-        return f"{self.get_name()}_icon"
-
-    def get_icon_source_pathes(self):
-        return [f".build/{self.get_name()}_icon", "workspace/base_icon_4"]
-
-    def get_icon_offset_x(self):
-        return 0
-
-    def get_icon_offset_y(self):
-        return 0
-
-    def get_dest_path(self):
-        return self.get_name()
-
-    def get_source_pathes(self):
-        return [f".build/{self.get_name()}", "workspace/base_road"]
-
-    def get_offset_x(self):
-        return 0
-
-    def get_offset_y(self):
-        return 0
-
-
-class MergeRoad(Merge):
-    def get_name(self):
-        return f"road_{self.d["source"]}"
-
-
-class MergeSurface(Merge):
-    def get_name(self):
-        return f"surface_{self.d["source"] + self.d["color"]}"
-
-    def get_icon_dest_path(self):
-        return f"{self.get_name()}_icon"
-
-    def get_icon_source_pathes(self):
-        return [
-            "workspace/base_icon_single",
-            f".build/{self.get_name()}_icon",
-            "workspace/base_icon_single_wrap",
-        ]
-
-    def get_dest_path(self):
-        return self.get_name()
-
-
-class MergeSidewalkFill(Merge):
-    def get_name(self):
-        return f"side_{self.d["source"]}"
-
-    def get_icon_dest_path(self):
-        return f"{self.get_name()}A_icon"
-
-    def get_icon_source_pathes(self):
-        return [
-            "workspace/base_icon_single",
-            f".build/{self.get_name()}_icon",
-            "workspace/base_icon_single_wrap",
-        ]
-
-    def get_dest_path(self):
-        return f"{self.get_name()}A"
-
-
-class MergeSidewalk(MergeSidewalkFill):
-    def get_name(self):
-        return f"side_{self.d["source"]}{self.d["layout"]}"
-
-    def get_icon_dest_path(self):
-        return f"{self.get_name()}_icon"
-
-    def get_icon_source_pathes(self):
-        return [f".build/{self.get_name()}_icon", "workspace/base_icon_4"]
-
-    def get_dest_path(self):
-        return self.get_name()
 
 
 class Dat:
