@@ -28,6 +28,8 @@ jobs:
         python-version: "3.12"
     - name: Install dependencies
       run: npm run setup
+    - name: make dist directory
+      run: mkdir dist
     - name: Build pak
       run: npm run build 
 
