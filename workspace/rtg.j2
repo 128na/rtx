@@ -11,14 +11,18 @@ files:
       path: "../workspace/{{ item.get_icon_source_path() }}.png"
       default_size: 512
     dest:
-      path: "{{ item.get_icon_dest_path() }}.png"
+      path: "../dist/{{ item.get_icon_dest_path() }}.png"
       width: {{ (item.get_icon_rules() | length) * 256 }}
       height: 512
       default_size: 256
-{%- if item.get_shift() != 0 %}
+    before_apply:
+{%- for apply in item.get_icon_before_apply() %}
+      - [{{ apply }}]
+{%- endfor %}
     after_apply:
-      - [shift, {{ item.get_shift() }}]
-{%- endif %}
+{%- for apply in item.get_icon_after_apply() %}
+      - [{{ apply }}]
+{%- endfor %}
     rules:
 {%- for rule in item.get_icon_rules() %}
       - name: icon{{ rule[0] }}
@@ -47,14 +51,18 @@ files:
       path: "../workspace/{{ item.get_source_path() }}.png"
       default_size: 512
     dest:
-      path: "{{ item.get_dest_path() }}.png"
+      path: "../dist/{{ item.get_dest_path() }}.png"
       width: {{ item.get_width() }}
       height: {{ item.get_height() }}
       default_size: 256
-{%- if item.get_shift() != 0 %}
+    before_apply:
+{%- for apply in item.get_before_apply() %}
+      - [{{ apply }}]
+{%- endfor %}
     after_apply:
-      - [shift, {{ item.get_shift() }}]
-{%- endif %}
+{%- for apply in item.get_after_apply() %}
+      - [{{ apply }}]
+{%- endfor %}
     rules:
 {%- for rule in item.get_rules() %}
       - name: "{{ rule[0] }}"

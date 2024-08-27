@@ -10,14 +10,12 @@
     "rtg:update": "git submodule update --remote",
     "j2": "python jinja.py",
     "rtg": "python rtg/main.py --debug \"./.build/*.yml\"",
-    "merge:dev": "simutrans-image-merger.exe ./.build/merge.json",
-    "merge": "./simutrans-image-merger ./.build/merge.json",
     "makeobj:dev": "makeobj.exe pak256 ./simutrans/pak128/output.pak ./dist/all.dat",
     "makeobj": "makeobj pak256 ./dist/rtx.pak ./dist/all.dat",
     "simutrans": "start /B ./simutrans/simutrans.exe",
     "wipe": "del .build\\* /Q && del dist\\* /Q",
-    "dev": "npm run wipe && npm run j2 && npm run rtg && npm run merge:dev && npm run makeobj:dev && npm run simutrans && pause && npm run dev",
-    "build": "mkdir -p .build && npm run j2 && npm run rtg && npm run merge && npm run makeobj"
+    "dev": "npm run wipe && npm run j2 && npm run rtg && npm run makeobj:dev && npm run simutrans && pause && npm run dev",
+    "build": "mkdir -p .build && npm run j2 && npm run rtg && npm run makeobj"
   },
   "author": "128Na",
   "license": "MIT"

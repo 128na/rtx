@@ -31,23 +31,6 @@ projects:
         pattern:
           source: [1, 2, 3, 4, 5, 6]
           layout: ["F", "B", "S"]
-  - source: workspace/merge.j2
-    dest: .build/merge.json
-    items:
-      - className: MergeRoad
-        pattern:
-          source: [4080, 3080, 2080, 580, 680, 780]
-      - className: MergeSurface
-        pattern:
-          source: [1, 5, 11, 15, 21, 25]
-          color: [0, 1, 2, 3]
-      - className: MergeSidewalkFill
-        pattern:
-          source: [1, 2, 3, 4, 5, 6]
-      - className: MergeSidewalk
-        pattern:
-          source: [1, 2, 3, 4, 5, 6]
-          layout: ["F", "B", "S"]
   - source: workspace/dat.j2
     dest: dist/all.dat
     items:

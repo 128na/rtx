@@ -27,13 +27,7 @@ jobs:
       with:
         python-version: "3.12"
     - name: Install dependencies
-      run: |
-        npm run setup
-        sudo apt-get install -y simutrans-makeobj
-        wget https://github.com/128na/simutrans-image-merger/releases/download/v1.6.1/release-ubuntu-latest.zip
-        unzip release-ubuntu-latest.zip
-        rm release-ubuntu-latest.zip
-        mv dist/simutrans-image-merger ./
+      run: npm run setup
     - name: Build pak
       run: npm run build 
 
