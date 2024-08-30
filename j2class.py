@@ -363,17 +363,17 @@ class RTGSidewalk(RTGSidewalkFill):
                     ["nsew_b", "1.0", "4.4", ["to_n"]],
                 ]
 
+
 class RTGETC(RTG):
     def get_rules(self):
         return [
-            [0, 0, 'to_s', 'to_w'],
-            [1, 1, 'to_s', 'to_w'],
-            [1, 2, 'to_n', 'to_e'],
-            [2, 3, 'to_s', 'to_w'],
-            [2, 4, 'to_n', 'to_e'],
-            [3, 5, 'to_s', 'to_w'],
-            [3, 6, 'to_n', 'to_e'],
-
+            [0, 0, "to_s", "to_w"],
+            [1, 1, "to_s", "to_w"],
+            [1, 2, "to_n", "to_e"],
+            [2, 3, "to_s", "to_w"],
+            [2, 4, "to_n", "to_e"],
+            [3, 5, "to_s", "to_w"],
+            [3, 6, "to_n", "to_e"],
         ]
 
 
@@ -717,14 +717,11 @@ class DatFX(DatTi):
             f"{p}image[nsw]={path}.4.3,-64,-96",
             f"{p}image[nsew]={path}.4.4,-64,-96",
         ]
-    
+
 
 class DatETC(Dat):
     series: str = "ETC"
     d: dict
-
-    def __init__(self, data) -> None:
-        self.d = data
 
     def get_name(self):
         return "etc"
@@ -744,7 +741,6 @@ class DatETC(Dat):
 
     def is_way_obj(self):
         return self.d["way_type"] != "T"
-
 
     def get_system_type(self):
         return 0
@@ -784,10 +780,11 @@ class DatETC(Dat):
         if self.is_way_obj():
             return "back"
         return ""
+
     def get_images(self):
         p = self.get_image_prefix()
         path = self.get_image_path()
-        l = self.d['layout']
+        l = self.d["layout"]
         return [
             f"{p}image[ns]={path}.2.{l},-64,-96",
             f"{p}image[ew]={path}.3.{l},-64,-96",
