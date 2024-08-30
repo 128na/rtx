@@ -1,0 +1,57 @@
+---
+title: ETC
+description: ETC専用
+rtg_version: 1
+options:
+  interpolation_flags: 2
+  resolution: 2
+{%- for item in items %}
+files:
+  - name: "ETCレーン(文字なし)"
+    source:
+      path: "../workspace/etc/1.png"
+      default_size: 512
+    dest:
+      path: "../dist/etc.png"
+      width: 2048
+      height: 1024
+      default_size: 256
+    before_apply:
+      - [merge, ../workspace/etc/before_base.png]
+    after_apply:
+      - [merge, ../workspace/etc/after_base.png]
+      - [removeSpecial]
+    rules:
+{%- for rule in item.get_rules() %}
+      - name: icon
+        source:
+          location: "0.{{ rule[0] }}"
+        dest:
+          location: "0.{{ rule[1]*2 }}"
+          size: 128
+        converts:
+          - {{ rule[2] }}
+      - name: cursor
+        source:
+          location: "0.{{ rule[0] }}"
+        dest:
+          location: "2.{{ rule[1]*2 }}"
+          size: 128
+        converts:
+          - {{ rule[2] }}
+      - name: s
+        source:
+          location: "0.{{ rule[0] }}"
+        dest:
+          location: "2.{{ rule[1] }}"
+        converts:
+          - {{ rule[2] }}
+      - name: w
+        source:
+          location: "0.{{ rule[0] }}"
+        dest:
+          location: "3.{{ rule[1] }}"
+        converts:
+          - {{ rule[3] }}
+{%- endfor %}
+{%- endfor %}

@@ -1,6 +1,24 @@
 # ここで定義毎のパターンを管理する
 # pattern内の配列の交差結合だけパターンが生成される
 projects:
+  - source: workspace/etc/rtg.j2
+    dest: .build/etc.yml
+    meta:
+      title: ETCレーン舗装
+      description: 道路全般
+      interpolation_flags: 3
+      resolution: 2
+    items:
+      - className: RTGETC
+        pattern:
+          source: [1]
+  - source: workspace/dat.j2
+    dest: dist/etc.dat
+    items:
+      - className: DatETC
+        pattern:
+          way_type: ["T", "Ro", "To"]
+          layout: [0, 1, 2, 3, 4, 5, 6]
   - source: workspace/rtg.j2
     dest: .build/road.yml
     meta:
@@ -33,7 +51,7 @@ projects:
           source: [1, 2, 3, 4, 5, 6]
           layout: ["F", "B", "S"]
   - source: workspace/dat.j2
-    dest: dist/all.dat
+    dest: dist/road.dat
     items:
       - className: DatRTX
         pattern:
@@ -45,6 +63,9 @@ projects:
           speed: [580, 680, 780]
           system_type: ["G", "E"]
           layout: ["F", "C", "B", "S"]
+  - source: workspace/dat.j2
+    dest: dist/tile.dat
+    items:
       - className: DatTi
         pattern:
           source: [1, 2]
@@ -58,6 +79,9 @@ projects:
           way_type: ["T", "Ro", "To"]
           speed: [3000, 6000]
           layout: ["F", "B"]
+  - source: workspace/dat.j2
+    dest: dist/side.dat
+    items:
       - className: DatFX
         pattern:
           source: [1, 2, 3, 4, 5, 6]

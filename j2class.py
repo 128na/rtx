@@ -363,6 +363,19 @@ class RTGSidewalk(RTGSidewalkFill):
                     ["nsew_b", "1.0", "4.4", ["to_n"]],
                 ]
 
+class RTGETC(RTG):
+    def get_rules(self):
+        return [
+            [0, 0, 'to_s', 'to_w'],
+            [1, 1, 'to_s', 'to_w'],
+            [1, 2, 'to_n', 'to_e'],
+            [2, 3, 'to_s', 'to_w'],
+            [2, 4, 'to_n', 'to_e'],
+            [3, 5, 'to_s', 'to_w'],
+            [3, 6, 'to_n', 'to_e'],
+
+        ]
+
 
 class Dat:
     series: str
@@ -703,4 +716,105 @@ class DatFX(DatTi):
             f"{p}image[sew]={path}.4.2,-64,-96",
             f"{p}image[nsw]={path}.4.3,-64,-96",
             f"{p}image[nsew]={path}.4.4,-64,-96",
+        ]
+    
+
+class DatETC(Dat):
+    series: str = "ETC"
+    d: dict
+
+    def __init__(self, data) -> None:
+        self.d = data
+
+    def get_name(self):
+        return "etc"
+
+    def get_obj(self):
+        if self.is_way_obj():
+            return "way-object"
+        return "way"
+
+    def get_full_name(self):
+        return f"{self.series} {self.d["layout"]}{self.d["way_type"]}"
+
+    def get_waytype(self):
+        if self.d["way_type"] == "Ro":
+            return "road"
+        return "tram_track"
+
+    def is_way_obj(self):
+        return self.d["way_type"] != "T"
+
+
+    def get_system_type(self):
+        return 0
+
+    def get_topspeed(self):
+        return 4000
+
+    def get_cost(self):
+        return 5000
+
+    def get_maintenance(self):
+        return 100
+
+    def get_image_path(self):
+        return "etc"
+
+    def get_icon_index(self):
+        match self.d["layout"]:
+            case "F":
+                return 0
+            case "C":
+                return 1
+            case "B":
+                return 2
+            case "S":
+                return 3
+            case _:
+                return 0
+
+    def get_icon(self):
+        return f"{self.get_image_path()}.0.{self.d['layout']},-48,-70"
+
+    def get_cursor(self):
+        return f"{self.get_image_path()}.1.{self.d['layout']},0,-12"
+
+    def get_image_prefix(self):
+        if self.is_way_obj():
+            return "back"
+        return ""
+    def get_images(self):
+        p = self.get_image_prefix()
+        path = self.get_image_path()
+        l = self.d['layout']
+        return [
+            f"{p}image[ns]={path}.2.{l},-64,-96",
+            f"{p}image[ew]={path}.3.{l},-64,-96",
+            f"{p}image[s]={path}.2.{l},-64,-96",
+            f"{p}image[w]={path}.3.{l},-64,-96",
+            f"{p}image[n]={path}.2.{l},-64,-96",
+            f"{p}image[e]={path}.3.{l},-64,-96",
+            f"{p}image[-]={path}.0.7,-64,-96",
+            f"{p}imageup[12]={path}.0.7,-64,-96",
+            f"{p}imageup[9]={path}.0.7,-64,-96",
+            f"{p}imageup[3]={path}.0.7,-64,-96",
+            f"{p}imageup[6]={path}.0.7,-64,-96",
+            f"{p}imageup2[12]={path}.0.7,-64,-96",
+            f"{p}imageup2[9]={path}.0.7,-64,-96",
+            f"{p}imageup2[3]={path}.0.7,-64,-96",
+            f"{p}imageup2[6]={path}.0.7,-64,-96",
+            f"{p}diagonal[sw]={path}.0.7,-64,-96",
+            f"{p}diagonal[nw]={path}.0.7,-64,-96",
+            f"{p}diagonal[ne]={path}.0.7,-64,-96",
+            f"{p}diagonal[se]={path}.0.7,-64,-96",
+            f"{p}image[sw]={path}.0.7,-64,-96",
+            f"{p}image[nw]={path}.0.7,-64,-96",
+            f"{p}image[ne]={path}.0.7,-64,-96",
+            f"{p}image[se]={path}.0.7,-64,-96",
+            f"{p}image[new]={path}.0.7,-64,-96",
+            f"{p}image[nse]={path}.0.7,-64,-96",
+            f"{p}image[sew]={path}.0.7,-64,-96",
+            f"{p}image[nsw]={path}.0.7,-64,-96",
+            f"{p}image[nsew]={path}.0.7,-64,-96",
         ]
